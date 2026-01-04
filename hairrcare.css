@@ -1,0 +1,1687 @@
+/* Hair Care Product Listing Styles */
+.haircare-main {
+    padding: 3rem 0;
+    background-color: #b19b6f;
+}
+
+.haircare-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding-top: 1rem;
+}
+
+.haircare-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 2rem;
+    letter-spacing: -1px;
+}
+
+.haircare-subtitle {
+    font-size: 1.2rem;
+    color: #4a5568;
+    max-width: 700px;
+    margin: 0 auto 1.5rem auto;
+    line-height: 1.7;
+    font-weight: 500;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.haircare-products {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.haircare-product {
+    background: #f5e6d3;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.haircare-product::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #1e3a8a;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.haircare-product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    border-color: #1e3a8a;
+}
+
+.haircare-product:hover::before {
+    transform: scaleY(1);
+}
+
+/* Product Image */
+.haircare-image {
+    flex-shrink: 0;
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0fff4, #e6fffa);
+    position: relative;
+}
+
+.haircare-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.haircare-product:hover .haircare-image img {
+    transform: scale(1.05);
+}
+
+/* Product Info */
+.haircare-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.haircare-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+}
+
+.haircare-tagline {
+    font-size: 1rem;
+    color: #1e3a8a;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.haircare-benefits {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.haircare-benefits li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+.haircare-benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #1e3a8a;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.haircare-description {
+    color: #718096;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.haircare-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.haircare-price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.haircare-stock {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.stock-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.stock-dot.in-stock {
+    background: #48bb78;
+}
+
+.stock-dot.low-stock {
+    background: #ed8936;
+}
+
+.stock-dot.out-of-stock {
+    background: #f56565;
+}
+
+.stock-text.in-stock {
+    color: #48bb78;
+}
+
+.stock-text.low-stock {
+    color: #ed8936;
+}
+
+.stock-text.out-of-stock {
+    color: #f56565;
+}
+
+/* Product Actions */
+.haircare-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-shrink: 0;
+    min-width: 140px;
+}
+
+.haircare-btn {
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.haircare-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.haircare-btn:hover::before {
+    left: 100%;
+}
+
+.haircare-btn-primary {
+    background: #1e3a8a;
+    color: white;
+    box-shadow: 0 2px 4px rgba(30, 58, 138, 0.2);
+}
+
+.haircare-btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(30, 58, 138, 0.3);
+}
+
+.haircare-btn-secondary {
+    background: #ffffff;
+    color: #1e3a8a;
+    border: 2px solid #1e3a8a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.haircare-btn-secondary:hover {
+    background: #1e3a8a;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(30, 58, 138, 0.2);
+}
+
+.haircare-btn:disabled {
+    background: #cbd5e0;
+    color: #a0aec0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.haircare-btn:disabled:hover {
+    background: #cbd5e0;
+    transform: none;
+    box-shadow: none;
+}
+
+.haircare-btn:disabled::before {
+    display: none;
+}
+
+/* Animation for product items */
+.haircare-product {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.haircare-product:nth-child(1) { animation-delay: 0.1s; }
+.haircare-product:nth-child(2) { animation-delay: 0.2s; }
+.haircare-product:nth-child(3) { animation-delay: 0.3s; }
+.haircare-product:nth-child(4) { animation-delay: 0.4s; }
+.haircare-product:nth-child(5) { animation-delay: 0.5s; }
+.haircare-product:nth-child(6) { animation-delay: 0.6s; }
+.haircare-product:nth-child(7) { animation-delay: 0.7s; }
+.haircare-product:nth-child(8) { animation-delay: 0.8s; }
+.haircare-product:nth-child(9) { animation-delay: 0.9s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Carousel Section Styles */
+.haircare-collection-section {
+    background: #b19b6f;
+    margin-top: 3rem;
+    padding: 2rem 0;
+}
+
+.haircare-collection-section .product-detail {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.carousel {
+    position: relative;
+    background: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    height: 400px;
+    border: 3px solid #1e3a8a;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    width: 500%;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+    width: 20%;
+    height: 100%;
+    flex-shrink: 0;
+    position: relative;
+    background: #ffffff;
+}
+
+.carousel-slide img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    overflow: hidden;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: rgba(30, 58, 138, 0.9);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.8rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.4);
+}
+
+.carousel-btn:hover {
+    background: rgba(30, 58, 138, 1);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(30, 58, 138, 0.6);
+}
+
+.carousel-btn.prev {
+    left: 20px;
+}
+
+.carousel-btn.next {
+    right: 20px;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.carousel-dots .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dots .dot.active,
+.carousel-dots .dot:hover {
+    background: #1e3a8a;
+    transform: scale(1.3);
+}
+
+.carousel-info {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.carousel-info h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1rem;
+}
+
+.carousel-info p {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.carousel-info .product-price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1e3a8a;
+}
+
+.btn-primary {
+    background: #1e3a8a;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    margin-right: 1rem;
+}
+
+.btn-secondary {
+    background: #ffffff;
+    color: #1e3a8a;
+    border: 2px solid #1e3a8a;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+}
+
+/* Toast Notification */
+.haircare-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #1e3a8a;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 3000;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.haircare-toast.show {
+    transform: translateX(0);
+}
+
+.haircare-toast::before {
+    content: '✓';
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .haircare-title {
+        font-size: 2.2rem;
+    }
+
+    .haircare-subtitle {
+        font-size: 1.1rem;
+        color: #4a5568;
+        font-weight: 500;
+        padding: 1rem 10px;
+        margin-bottom: 1rem;
+    }
+
+    .haircare-product {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .haircare-image {
+        width: 180px;
+        height: 180px;
+        align-self: center;
+    }
+
+    .haircare-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    .haircare-meta {
+        justify-content: center;
+    }
+
+    .haircare-actions {
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        min-width: auto;
+    }
+
+    .haircare-btn {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .carousel {
+        width: 100%;
+        height: 350px;
+    }
+
+    .carousel-slide img {
+        height: 350px;
+    }
+
+    .carousel-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+    }
+
+    .carousel-btn.prev {
+        left: 15px;
+    }
+
+    .carousel-btn.next {
+        right: 15px;
+    }
+
+    .carousel-info h1 {
+        font-size: 1.8rem;
+    }
+
+    .carousel-info .product-price {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .haircare-main {
+        padding: 2rem 0;
+    }
+
+    .haircare-header {
+        margin-bottom: 3rem;
+    }
+
+    .haircare-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .haircare-subtitle {
+        font-size: 1rem;
+        color: #4a5568;
+        font-weight: 500;
+        padding: 1rem 15px;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .haircare-product {
+        padding: 1.25rem;
+        gap: 1.25rem;
+    }
+
+    .haircare-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .haircare-name {
+        font-size: 1.3rem;
+    }
+
+    .haircare-price {
+        font-size: 1.6rem;
+    }
+
+    .haircare-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .haircare-btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    .carousel {
+        width: 100%;
+        height: 300px;
+    }
+
+    .carousel-slide img {
+        height: 300px;
+    }
+
+    .carousel-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
+    .carousel-btn.prev {
+        left: 10px;
+    }
+
+    .carousel-btn.next {
+        right: 10px;
+    }
+
+    .carousel-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 0.7rem 1.3rem;
+        font-size: 0.95rem;
+    }
+
+    .haircare-toast {
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        transform: translateY(100%);
+    }
+
+    .haircare-toast.show {
+        transform: translateY(0);
+    }
+}
+
+/* Product Gallery Carousel Styles */
+.product-gallery-section {
+    background: #b19b6f;
+    padding: 4rem 0;
+    margin-top: 2rem;
+}
+
+.gallery-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 3rem;
+}
+
+.gallery-container {
+    display: flex;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.product-gallery-carousel {
+    position: relative;
+    flex: 0 0 350px; /* Fixed width for desktop */
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 2px solid #1e3a8a; /* Proper blue border */
+    max-width: 100%;
+}
+
+.gallery-track {
+    display: flex;
+    width: 900%; /* 9 slides for 9 products */
+    height: 200px; /* Compact height that fits in a box */
+    transition: transform 0.6s ease;
+}
+
+.gallery-slide {
+    width: 11.11%; /* 100% / 9 slides */
+    height: 100%;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; /* Padding inside the box */
+}
+
+.single-product-image {
+    width: calc(100% - 20px); /* Account for padding */
+    height: calc(100% - 20px); /* Account for padding */
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0; /* Inner border for the image */
+    background: #f8fafc;
+}
+
+.single-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Changed from cover to contain to fit within box */
+    object-position: center;
+    transition: transform 0.3s ease;
+    padding: 5px; /* Small padding around image */
+}
+
+.single-product-image:hover img {
+    transform: scale(1.02); /* Reduced scale to stay within box */
+}
+
+.gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(30, 58, 138, 0.9);
+    color: white;
+    border: none;
+    width: 35px; /* Smaller buttons for compact design */
+    height: 35px;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3);
+}
+
+.gallery-btn:hover {
+    background: rgba(30, 58, 138, 1);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.5);
+}
+
+.gallery-btn.prev {
+    left: 8px;
+}
+
+.gallery-btn.next {
+    right: 8px;
+}
+
+.gallery-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 6px 12px;
+    border-radius: 15px;
+}
+
+.gallery-dot {
+    width: 8px; /* Smaller dots for compact design */
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gallery-dot.active,
+.gallery-dot:hover {
+    background: #1e3a8a;
+    transform: scale(1.2);
+}
+
+/* Product Descriptions */
+.product-descriptions {
+    flex: 1;
+    background: #f5e6d3;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #1e3a8a;
+    max-height: 250px; /* Reduced to match smaller image container */
+    overflow-y: auto;
+}
+
+.product-descriptions h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid #1e3a8a;
+    padding-bottom: 0.5rem;
+}
+
+.description-list {
+    position: relative;
+}
+
+.description-slide {
+    display: none;
+    gap: 1.5rem;
+}
+
+.description-slide.active {
+    display: block;
+}
+
+.product-desc {
+    background: #f7fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #1e3a8a;
+    transition: all 0.3s ease;
+}
+
+.product-desc:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
+}
+
+.product-desc.empty-desc {
+    display: none;
+}
+
+.product-description {
+    color: #4a5568;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.product-desc h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+}
+
+.product-tagline {
+    font-size: 1rem;
+    color: #1e3a8a;
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.product-benefits {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.product-benefits li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.product-benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #1e3a8a;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    text-align: right;
+    margin-top: 1rem;
+}
+
+/* Responsive Design for Gallery */
+@media (max-width: 1024px) {
+    .gallery-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .product-gallery-carousel {
+        flex: none;
+        width: 100%;
+        max-width: 450px; /* Suitable width for tablet */
+        margin: 0 auto;
+    }
+    
+    .gallery-track {
+        height: 180px; /* Compact height for tablet */
+    }
+    
+    .product-descriptions {
+        max-height: none;
+        overflow-y: visible;
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .gallery-container {
+        margin: 0 1rem;
+        gap: 1rem;
+    }
+
+    .product-gallery-carousel {
+        max-width: 100%;
+    }
+    
+    .gallery-track {
+        height: 160px; /* Compact height for mobile */
+    }
+    
+    .gallery-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+    
+    .gallery-btn.prev {
+        left: 5px;
+    }
+    
+    .gallery-btn.next {
+        right: 5px;
+    }
+    
+    .product-descriptions {
+        padding: 1rem;
+    }
+}
+
+    .gallery-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .gallery-btn.prev {
+        left: 8px;
+    }
+
+    .gallery-btn.next {
+        right: 8px;
+    }
+
+    .product-descriptions {
+        padding: 1.5rem;
+    }
+
+    .product-descriptions h3 {
+        font-size: 1.5rem;
+    }
+
+    .product-desc {
+        padding: 1.2rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .product-desc h4 {
+        font-size: 1.1rem;
+    }
+
+    .product-benefits li {
+        font-size: 0.85rem;
+    }
+
+    .product-price {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-gallery-section {
+        padding: 2rem 0;
+    }
+
+    .gallery-title {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .gallery-container {
+        margin: 0 0.5rem;
+    }
+    
+    .gallery-track {
+        height: 140px; /* Very compact for small mobile */
+    }
+    
+    .gallery-slide {
+        padding: 8px; /* Reduced padding for small screens */
+    }
+    
+    .single-product-image {
+        border-radius: 6px;
+    }
+    
+    .single-product-image img {
+        padding: 3px;
+    }
+    
+    .gallery-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 0.8rem;
+    }
+    
+    .gallery-dots {
+        bottom: 5px;
+        padding: 4px 8px;
+    }
+    
+    .gallery-dot {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .product-descriptions {
+        padding: 0.8rem;
+    }
+    
+    .product-descriptions h3 {
+        font-size: 1.3rem;
+    }
+    
+    .product-desc {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+    .gallery-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    .product-descriptions {
+        padding: 1rem;
+    }
+
+    .product-desc {
+        padding: 1rem;
+    }
+
+    .product-desc h4 {
+        font-size: 1rem;
+    }
+
+    .product-benefits li {
+        font-size: 0.8rem;
+    }
+
+    .product-price {
+        font-size: 1.2rem;
+    }
+}
+
+/* NEW: Product Gallery Section - 9 Separate Product Boxes */
+.product-gallery-section {
+    background: #b19b6f;
+    padding: 4rem 0;
+    margin-top: 2rem;
+}
+
+.gallery-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 3rem;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-box {
+    background: #f5e6d3;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #1e3a8a;
+    overflow: hidden;
+    display: flex;
+    transition: all 0.3s ease;
+}
+
+.product-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.2);
+}
+
+.product-image-left {
+    flex: 0 0 200px;
+    height: 250px;
+    overflow: hidden;
+    border-right: 2px solid #e2e8f0;
+}
+
+.product-image-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.product-box:hover .product-image-left img {
+    transform: scale(1.05);
+}
+
+.product-info-right {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-info-right h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+}
+
+.product-tagline {
+    font-size: 0.95rem;
+    color: #1e3a8a;
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.product-benefits {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.product-benefits li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.4rem;
+    color: #4a5568;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.product-benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #1e3a8a;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.product-description {
+    color: #4a5568;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    text-align: right;
+    margin-top: auto;
+}
+
+/* Responsive Design for Product Boxes */
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .product-box {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .product-box {
+        flex-direction: column;
+    }
+    
+    .product-image-left {
+        flex: none;
+        width: 100%;
+        height: 200px;
+        border-right: none;
+        border-bottom: 2px solid #e2e8f0;
+    }
+    
+    .product-info-right {
+        padding: 1.2rem;
+    }
+    
+    .product-info-right h4 {
+        font-size: 1.2rem;
+    }
+    
+    .product-price {
+        text-align: center;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-gallery-section {
+        padding: 3rem 0;
+    }
+    
+    .gallery-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .products-grid {
+        margin: 0 0.5rem;
+        gap: 1rem;
+    }
+    
+    .product-box {
+        border-radius: 12px;
+    }
+    
+    .product-image-left {
+        height: 180px;
+    }
+    
+    .product-info-right {
+        padding: 1rem;
+    }
+    
+    .product-info-right h4 {
+        font-size: 1.1rem;
+    }
+    
+    .product-tagline {
+        font-size: 0.9rem;
+    }
+    
+    .product-benefits li {
+        font-size: 0.8rem;
+    }
+    
+    .product-description {
+        font-size: 0.85rem;
+    }
+    
+    .product-price {
+        font-size: 1.2rem;
+    }
+}
+/* NEW: Combo Hair Treatment Section */
+.combo-treatment-section {
+    background: #b19b6f;
+    padding: 4rem 0;
+    margin-top: 2rem;
+    border-top: 3px solid #1e3a8a;
+}
+
+.combo-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 1rem;
+}
+
+.combo-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #4a5568;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.combo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto 4rem auto;
+}
+
+.combo-box {
+    background: #f5e6d3;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    border: 2px solid #1e3a8a;
+    overflow: hidden;
+    display: flex;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.combo-box::before {
+    content: 'COMBO DEAL';
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    background: #dc2626;
+    color: white;
+    padding: 5px 40px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transform: rotate(45deg);
+    z-index: 2;
+}
+
+.combo-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(30, 58, 138, 0.2);
+}
+
+.combo-image-left {
+    flex: 0 0 180px; /* Reduced from 250px to 180px */
+    height: 200px; /* Reduced from 300px to 200px */
+    overflow: hidden;
+    border-right: 2px solid #e2e8f0;
+}
+
+.combo-image-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.combo-box:hover .combo-image-left img {
+    transform: scale(1.05);
+}
+
+.combo-info-right {
+    flex: 1;
+    padding: 1.5rem; /* Reduced from 2rem to 1.5rem */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Changed from space-between to flex-start */
+    gap: 1rem; /* Added gap for better spacing */
+}
+
+.combo-info-right h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+}
+
+.combo-tagline {
+    font-size: 0.95rem;
+    color: #1e3a8a;
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.combo-includes, .combo-benefits {
+    margin-bottom: 1rem; /* Reduced from 1.5rem to 1rem */
+}
+
+.combo-includes h5, .combo-benefits h5 {
+    font-size: 0.95rem; /* Reduced from 1rem */
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 0.4rem; /* Reduced from 0.5rem */
+}
+
+.combo-items, .benefit-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.combo-items li {
+    position: relative;
+    padding-left: 1.3rem; /* Reduced from 1.5rem */
+    margin-bottom: 0.25rem; /* Reduced from 0.3rem */
+    color: #4a5568;
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+    line-height: 1.3;
+}
+
+.combo-items li::before {
+    content: '📦';
+    position: absolute;
+    left: 0;
+    font-size: 0.75rem; /* Reduced from 0.8rem */
+}
+
+.benefit-list li {
+    position: relative;
+    padding-left: 1.3rem; /* Reduced from 1.5rem */
+    margin-bottom: 0.25rem; /* Reduced from 0.3rem */
+    color: #4a5568;
+    font-size: 0.85rem; /* Reduced from 0.9rem */
+    line-height: 1.3;
+}
+
+.benefit-list li::before {
+    content: '✨';
+    position: absolute;
+    left: 0;
+    font-size: 0.75rem; /* Reduced from 0.8rem */
+}
+
+.combo-pricing {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem; /* Reduced from 1rem */
+    margin-top: 0.5rem; /* Reduced from auto */
+    padding-top: 0.8rem; /* Reduced from 1rem */
+    border-top: 1px solid #e2e8f0;
+}
+
+.original-price {
+    font-size: 1rem; /* Reduced from 1.1rem */
+    color: #9ca3af;
+    text-decoration: line-through;
+}
+
+.combo-price {
+    font-size: 1.6rem; /* Reduced from 1.8rem */
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.savings {
+    background: #10b981;
+    color: white;
+    padding: 0.25rem 0.6rem; /* Reduced padding */
+    border-radius: 15px; /* Reduced from 20px */
+    font-size: 0.75rem; /* Reduced from 0.8rem */
+    font-weight: 600;
+}
+
+/* Combo CTA Section */
+.combo-cta {
+    text-align: center;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    margin-top: 2rem;
+}
+
+.combo-cta h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cta-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.cta-benefit {
+    text-align: center;
+}
+
+.cta-benefit i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #fbbf24;
+}
+
+.cta-benefit h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.cta-benefit p {
+    font-size: 1rem;
+    opacity: 1;
+    font-weight: 500;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.combo-cta-btn {
+    background: #fbbf24;
+    color: #1a202c;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.combo-cta-btn:hover {
+    background: #f59e0b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(251, 191, 36, 0.4);
+}
+
+/* Responsive Design for Combo Section */
+@media (max-width: 768px) {
+    .combo-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .combo-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .combo-box {
+        flex-direction: column;
+    }
+    
+    .combo-image-left {
+        flex: none;
+        width: 100%;
+        height: 160px; /* Reduced from 200px */
+        border-right: none;
+        border-bottom: 2px solid #e2e8f0;
+    }
+    
+    .combo-info-right {
+        padding: 1.2rem; /* Reduced from 1.5rem */
+    }
+    
+    .combo-info-right h4 {
+        font-size: 1.2rem; /* Reduced from 1.3rem */
+    }
+    
+    .combo-pricing {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .combo-price {
+        font-size: 1.4rem; /* Reduced from 1.6rem */
+    }
+    
+    .combo-cta h3 {
+        font-size: 1.6rem;
+    }
+    
+    .cta-benefits {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .combo-treatment-section {
+        padding: 3rem 0;
+    }
+    
+    .combo-title {
+        font-size: 1.8rem;
+    }
+    
+    .combo-subtitle {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .combo-grid {
+        margin: 0 0.5rem 3rem 0.5rem;
+        gap: 2rem;
+    }
+    
+    .combo-box {
+        border-radius: 12px;
+    }
+    
+    .combo-image-left {
+        height: 140px; /* Reduced from 180px */
+    }
+    
+    .combo-info-right {
+        padding: 1rem; /* Reduced from 1.2rem */
+    }
+    
+    .combo-info-right h4 {
+        font-size: 1.1rem; /* Reduced from 1.2rem */
+    }
+    
+    .combo-tagline {
+        font-size: 0.85rem; /* Reduced from 0.9rem */
+    }
+    
+    .combo-items li, .benefit-list li {
+        font-size: 0.8rem; /* Reduced from 0.85rem */
+    }
+    
+    .combo-price {
+        font-size: 1.3rem; /* Reduced from 1.4rem */
+    }
+    
+    .combo-cta {
+        padding: 2rem 1rem;
+        margin: 2rem 0.5rem 0 0.5rem;
+    }
+    
+    .combo-cta h3 {
+        font-size: 1.4rem;
+    }
+    
+    .combo-cta-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+}

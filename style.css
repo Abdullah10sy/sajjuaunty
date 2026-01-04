@@ -9,7 +9,7 @@ body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #ffffff;
+    background-color: var(--white);
 }
 
 .container {
@@ -20,11 +20,12 @@ body {
 
 /* Color Variables */
 :root {
-    --primary-blue: #6B9BD2;
+    --primary-blue: #051650;
+    --primary-blue-light: #0c2b55;
     --light-blue: #E8F2FF;
     --beige: #F5E6D3;
     --dark-beige: #E8D5B7;
-    --white: #ffffff;
+    --white: #b19b6f; /* changed from white to requested beige */
     --light-gray: #f8f9fa;
     --dark-gray: #333333;
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -70,8 +71,8 @@ p {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-blue), #5A8BC7);
-    color: white;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+    color: var(--white);
     box-shadow: var(--shadow);
 }
 
@@ -96,7 +97,7 @@ p {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(177, 155, 111, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 1rem 0;
@@ -137,10 +138,69 @@ p {
     color: var(--primary-blue);
 }
 
+/* Tooltip bubble for top nav links */
+.nav-link[data-tooltip] {
+    position: relative;
+}
+
+.nav-link[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: var(--primary-blue);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    box-shadow: var(--shadow);
+    z-index: 1002;
+}
+
+.nav-link[data-tooltip]::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent var(--primary-blue) transparent;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    z-index: 1002;
+}
+
+.nav-link[data-tooltip]:hover::after,
+.nav-link[data-tooltip]:focus::after,
+.nav-link[data-tooltip].active::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-link[data-tooltip]:hover::before,
+.nav-link[data-tooltip]:focus::before,
+.nav-link[data-tooltip].active::before {
+    opacity: 1;
+}
+
+/* Disable tooltips on touch devices (no hover) */
+@media (hover: none) {
+    .nav-link[data-tooltip]::after,
+    .nav-link[data-tooltip]::before {
+        display: none;
+    }
+}
+
 .cart-btn {
     position: relative;
     background: var(--primary-blue);
-    color: white;
+    color: var(--white);
     border: none;
     padding: 10px 15px;
     border-radius: 50px;
@@ -149,7 +209,7 @@ p {
 }
 
 .cart-btn:hover {
-    background: #5A8BC7;
+    background: var(--primary-blue-light);
     transform: translateY(-2px);
 }
 
@@ -169,6 +229,51 @@ p {
     font-weight: 600;
 }
 
+/* Cart modal */
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1500;
+}
+.cart-overlay.show {
+    display: flex;
+}
+.cart-modal {
+    background: var(--white);
+    color: var(--dark-gray);
+    width: 90%;
+    max-width: 480px;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+}
+.cart-modal h4 {
+    margin: 0 0 12px 0;
+}
+.cart-items {
+    max-height: 320px;
+    overflow: auto;
+    display: grid;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+.cart-item .meta { flex: 1; }
+.cart-item .meta strong { display:block; }
+.cart-item .qty-controls { display:flex; gap:8px; align-items:center; }
+.cart-total { font-weight:700; margin-top:8px; text-align:right; }
+.cart-actions { display:flex; gap:8px; margin-top:12px; justify-content:flex-end; }
+
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -185,7 +290,7 @@ p {
 
 /* Hero Section */
 .hero {
-    padding: 120px 0 80px;
+    padding: 165px 0 80px;
     background: linear-gradient(135deg, var(--light-blue), var(--white));
     min-height: 100vh;
     display: flex;
@@ -225,6 +330,7 @@ p {
     height: auto;
     border-radius: 20px;
     box-shadow: var(--shadow-hover);
+    margin-top: 2rem;
 }
 
 /* Section Titles */
@@ -247,6 +353,15 @@ p {
     border-radius: 2px;
 }
 
+/* Section Divider */
+.section-divider {
+    height: 4px;
+    background: var(--primary-blue);
+    width: 100%;
+    max-width: 1200px;
+    margin: 1.5rem auto;
+    border-radius: 3px;
+}
 /* Featured Products */
 .featured-products {
     padding: 80px 0;
@@ -261,7 +376,7 @@ p {
 }
 
 .product-card {
-    background: white;
+    background: var(--white);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: var(--shadow);
@@ -327,10 +442,141 @@ p {
     box-shadow: var(--shadow);
 }
 
+/* Fragrance Thumbnails List */
+.fragrance-thumbnails {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+    padding: 18px;
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.fragrance-thumbs-title {
+    font-size: 1.15rem;
+    margin: 0 0 8px 0;
+    color: #fff;
+}
+.fragrance-thumbnails-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.thumbnail-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: rgba(255,255,255,0.06);
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 560px;
+}
+.thumbnail-item img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+.thumbnail-item .thumb-meta {
+    display: flex;
+    flex-direction: column;
+}
+.thumbnail-item .thumb-meta strong {
+    color: #fff;
+    font-size: 1rem;
+}
+@media (min-width: 768px) {
+    .fragrance-thumbnails-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .thumbnail-item {
+        width: calc(50% - 12px);
+    }
+}
+
+/* Carousel */
+.carousel {
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: #f4f4f4;
+}
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.45s ease;
+}
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index: 2;
+}
+.carousel-btn.prev { left: 12px; }
+.carousel-btn.next { right: 12px; }
+.carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+.carousel-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.7);
+  border: none;
+  cursor: pointer;
+}
+.carousel-dots .dot.active {
+  background: var(--primary-blue);
+}
+
+@media (max-width: 600px) {
+  .carousel { height: 250px; }
+}
+
 /* Testimonials */
 .testimonials {
     padding: 80px 0;
     background: var(--light-gray);
+}
+
+.testimonials .section-title {
+    color: var(--primary-blue);
 }
 
 .testimonials-grid {
@@ -340,7 +586,7 @@ p {
 }
 
 .testimonial-card {
-    background: white;
+    background: var(--white);
     padding: 2rem;
     border-radius: 20px;
     box-shadow: var(--shadow);
@@ -383,18 +629,18 @@ p {
 /* Newsletter */
 .newsletter {
     padding: 80px 0;
-    background: linear-gradient(135deg, var(--primary-blue), #5A8BC7);
-    color: white;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+    color: var(--white);
     text-align: center;
 }
 
 .newsletter-content h2 {
-    color: white;
+    color: var(--white);
     margin-bottom: 1rem;
 }
 
 .newsletter-content p {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(177, 155, 111, 0.9);
     margin-bottom: 2rem;
     font-size: 1.1rem;
 }
@@ -443,7 +689,7 @@ p {
 .filter-btn.active,
 .filter-btn:hover {
     background: var(--primary-blue);
-    color: white;
+    color: var(--white);
 }
 
 /* About Section */
@@ -547,14 +793,14 @@ p {
     width: 40px;
     height: 40px;
     background: var(--primary-blue);
-    color: white;
+    color: var(--white);
     border-radius: 50%;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
 .social-links a:hover {
-    background: #5A8BC7;
+    background: var(--primary-blue-light);
     transform: translateY(-2px);
 }
 
@@ -589,7 +835,7 @@ p {
 /* Footer */
 .footer {
     background: var(--dark-gray);
-    color: white;
+    color: var(--white);
     padding: 60px 0 20px;
 }
 
@@ -602,7 +848,7 @@ p {
 
 .footer-section h3,
 .footer-section h4 {
-    color: white;
+    color: var(--white);
     margin-bottom: 1rem;
 }
 
@@ -650,7 +896,7 @@ p {
 }
 
 .modal-content {
-    background-color: white;
+    background-color: var(--white);
     margin: 5% auto;
     padding: 0;
     border-radius: 20px;
@@ -734,7 +980,7 @@ p {
     width: 30px;
     height: 30px;
     border: 1px solid #ddd;
-    background: white;
+    background: var(--white);
     border-radius: 5px;
     cursor: pointer;
     display: flex;
@@ -758,7 +1004,7 @@ p {
 
 .remove-item {
     background: #ff4757;
-    color: white;
+    color: var(--white);
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
@@ -864,7 +1110,7 @@ p {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color: white;
+        background-color: var(--white);
         width: 100%;
         text-align: center;
         transition: 0.3s;
@@ -927,13 +1173,102 @@ p {
     }
 }
 
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2rem;
+@media (max-width: 992px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: start;
+    }
+
+    .hero-image {
+        order: 2;
+    }
+
+    .hero-content {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: var(--white);
+        flex-direction: column;
+        gap: 0;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        z-index: 1001;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hamburger.open .bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+
+    .hamburger.open .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.open .bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .nav-logo h2 {
+        font-size: 1.2rem;
+    }
+
+    .product-image {
+        height: 180px;
     }
 
     .section-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 90px;
+    }
+
+    .product-filters {
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.6rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
     }
 
     .btn {
@@ -951,13 +1286,8 @@ p {
         padding: 1rem;
     }
 
-    .product-filters {
-        gap: 0.5rem;
-    }
-
-    .filter-btn {
-        padding: 8px 15px;
-        font-size: 0.9rem;
+    .product-image {
+        height: 150px;
     }
 }
 
@@ -971,9 +1301,9 @@ html {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(177, 155, 111, 0.3);
     border-radius: 50%;
-    border-top-color: white;
+    border-top-color: var(--white);
     animation: spin 1s ease-in-out infinite;
 }
 
@@ -1040,4 +1370,3426 @@ html {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Perfume Explorer Section - Responsive 16:9 Layout */
+.perfume-explorer {
+    margin: 3rem 0;
+    padding: 2rem 0;
+}
+
+.explorer-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.explorer-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--beige));
+    border-radius: 2px;
+}
+
+.perfume-container {
+    /* Create a centered container that maintains viewport bounds */
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    
+    /* Ensure the container scales with viewport */
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfume-grid {
+    /* 16:9 aspect ratio container using modern CSS */
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    
+    /* Ensure it doesn't exceed viewport dimensions */
+    max-width: min(90vw, 1200px);
+    max-height: min(90vh, 675px); /* 1200px * 9/16 = 675px */
+    
+    /* Grid layout for perfumes */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    
+    /* Styling */
+    background: #f5e6d3;
+    border-radius: 20px;
+    box-shadow: var(--shadow-hover);
+    border: 2px solid rgba(210, 105, 30, 0.2);
+    
+    /* Center content within the grid */
+    align-items: center;
+    justify-items: center;
+}
+
+.perfume-card {
+    background: #f5e6d3;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    
+    /* Ensure cards scale proportionally */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.perfume-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+}
+
+.perfume-image {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfume-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.perfume-card:hover .perfume-image img {
+    transform: scale(1.1);
+}
+
+/* Perfume Image Carousel */
+.perfume-image-carousel {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--light-gray);
+    cursor: pointer;
+}
+
+.perfume-image-track {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfume-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+.perfume-img.active {
+    opacity: 1;
+}
+
+.perfume-card:hover .perfume-img.active {
+    transform: scale(1.05);
+}
+
+.perfume-dots {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    z-index: 2;
+}
+
+.perfume-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.perfume-dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.perfume-info h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.perfume-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.perfume-add-btn {
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.perfume-add-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Responsive Design for Different Screen Sizes */
+@media (max-width: 1200px) {
+    .perfume-grid {
+        max-width: 95vw;
+        max-height: min(85vh, calc(95vw * 9 / 16));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.2rem;
+        padding: 1.5rem;
+    }
+    
+    .perfume-card {
+        max-width: 200px;
+        padding: 1.2rem;
+    }
+    
+    .perfume-image-carousel {
+        height: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .explorer-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .perfume-container {
+        padding: 0 1rem;
+    }
+    
+    .perfume-grid {
+        max-width: 95vw;
+        max-height: min(80vh, calc(95vw * 9 / 16));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        padding: 1.2rem;
+    }
+    
+    .perfume-card {
+        max-width: 180px;
+        padding: 1rem;
+    }
+    
+    .perfume-image-carousel {
+        height: 80px;
+    }
+    
+    .perfume-info h4 {
+        font-size: 1rem;
+    }
+    
+    .perfume-price {
+        font-size: 1.1rem;
+    }
+    
+    .perfume-add-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .explorer-title {
+        font-size: 1.8rem;
+    }
+    
+    .perfume-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        padding: 1rem;
+        max-height: min(75vh, calc(95vw * 9 / 16));
+    }
+    
+    .perfume-card {
+        max-width: 160px;
+        padding: 0.8rem;
+    }
+    
+    .perfume-image-carousel {
+        height: 70px;
+    }
+    
+    .perfume-info h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .perfume-price {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1400px) {
+    .perfume-grid {
+        max-width: 1200px;
+        max-height: 675px;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 2rem;
+        padding: 2.5rem;
+    }
+    
+    .perfume-card {
+        max-width: 240px;
+    }
+    
+    .perfume-image-carousel {
+        height: 140px;
+    }
+}
+
+/* Ensure proper scaling on very small screens */
+@media (max-width: 320px) {
+    .perfume-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 0.8rem;
+    }
+    
+    .perfume-card {
+        max-width: 140px;
+        padding: 0.6rem;
+    }
+    
+    .perfume-image-carousel {
+        height: 60px;
+    }
+    
+    .perfume-info h4 {
+        font-size: 0.8rem;
+    }
+    
+    .perfume-price {
+        font-size: 0.9rem;
+    }
+    
+    .perfume-add-btn {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+}
+
+/* Animation for smooth transitions */
+@media (prefers-reduced-motion: no-preference) {
+    .perfume-grid {
+        animation: fadeInScale 0.6s ease-out;
+    }
+    
+    .perfume-card {
+        animation: slideInUp 0.4s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .perfume-card:nth-child(1) { animation-delay: 0.1s; }
+    .perfume-card:nth-child(2) { animation-delay: 0.2s; }
+    .perfume-card:nth-child(3) { animation-delay: 0.3s; }
+    .perfume-card:nth-child(4) { animation-delay: 0.4s; }
+    .perfume-card:nth-child(5) { animation-delay: 0.5s; }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus states for accessibility */
+.perfume-add-btn:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+.perfume-card:focus-within {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+    border-radius: 15px;
+}
+/* ===== RESPONSIVE AUTO-SWIPING IMAGE SLIDER ===== */
+
+/* Main slider container with 4:5 aspect ratio */
+.image-slider {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    max-width: min(45vw, 500px);
+    max-height: min(80vh, 625px);
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-hover);
+    background: var(--light-gray);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Slider container holds all slides */
+.slider-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Individual slide styling */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    background: #f5e6d3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Active slide is visible */
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Ensure first slide is visible initially */
+.slide:first-child {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Loading state for slides */
+.slide-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #666;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+}
+
+/* CRITICAL: Ensure only ONE image per slide */
+.slide img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+/* Remove any duplicate images */
+.slide img + img {
+    display: none !important;
+}
+
+/* Hover effect on images */
+.slide:hover img {
+    transform: scale(1.02);
+}
+
+/* Error state styling */
+.slide.error {
+    background: #f5e6d3;
+    color: #8B4513;
+    font-size: 0.9rem;
+}
+
+.slide.error::before {
+    content: "📷";
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* Navigation buttons */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--dark-gray);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    opacity: 0.8;
+}
+
+.slider-btn:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    opacity: 1;
+}
+
+.slider-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.prev-btn {
+    left: 15px;
+}
+
+.next-btn {
+    right: 15px;
+}
+
+/* Dot indicators */
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.dot:hover,
+.dot.active {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.2);
+    border-color: rgba(255, 255, 255, 1);
+}
+
+/* Responsive design for different screen sizes */
+@media (max-width: 1200px) {
+    .image-slider {
+        max-width: min(45vw, 450px);
+        max-height: min(75vh, 562px);
+    }
+}
+
+@media (max-width: 968px) {
+    .image-slider {
+        max-width: min(70vw, 400px);
+        max-height: min(60vh, 500px);
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-slider {
+        max-width: min(80vw, 350px);
+        max-height: min(55vh, 437px);
+    }
+    
+    .slider-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+    }
+    
+    .prev-btn {
+        left: 10px;
+    }
+    
+    .next-btn {
+        right: 10px;
+    }
+    
+    .slider-dots {
+        bottom: 15px;
+        gap: 10px;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-slider {
+        max-width: min(90vw, 300px);
+        max-height: min(50vh, 375px);
+    }
+    
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .prev-btn {
+        left: 8px;
+    }
+    
+    .next-btn {
+        right: 8px;
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1400px) {
+    .image-slider {
+        max-width: 550px;
+        max-height: 687px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+    .image-slider {
+        max-width: 95vw;
+        max-height: min(45vh, calc(95vw * 5 / 4));
+    }
+    
+    .slider-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .prev-btn {
+        left: 5px;
+    }
+    
+    .next-btn {
+        right: 5px;
+    }
+}
+
+/* Focus states for accessibility */
+.slider-btn:focus,
+.dot:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .slider-btn {
+        background: white;
+        border: 2px solid var(--dark-gray);
+    }
+    
+    .dot {
+        border: 3px solid white;
+        background: rgba(0, 0, 0, 0.8);
+    }
+    
+    .dot.active {
+        background: white;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .slide {
+        transition: opacity 0.2s ease;
+    }
+    
+    .slide img {
+        transition: none;
+    }
+    
+    .slider-btn,
+    .dot {
+        transition: none;
+    }
+}
+
+/* Right Side - Product Information */
+.product-info-section {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    min-height: 400px;
+}
+
+.product-info-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.product-info-section p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.product-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin: 2rem 0 !important;
+}
+
+.product-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.product-actions .btn {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    min-width: 140px;
+}
+
+.product-actions .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Responsive Design for Different Screen Sizes */
+@media (max-width: 1200px) {
+    .product-detail-container {
+        gap: 2rem;
+        padding: 0 1.5rem;
+    }
+    
+    .carousel {
+        max-width: min(45vw, 450px);
+        max-height: min(75vh, 562px); /* 450px * 5/4 = 562px */
+    }
+    
+    .product-info-section h1 {
+        font-size: 2.2rem;
+    }
+    
+    .product-price {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 968px) {
+    .product-detail-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .carousel {
+        max-width: min(70vw, 400px);
+        max-height: min(60vh, 500px); /* 400px * 5/4 = 500px */
+        margin: 0 auto;
+    }
+    
+    .product-info-section {
+        padding: 1rem 0;
+        min-height: auto;
+    }
+    
+    .product-info-section h1 {
+        font-size: 2rem;
+    }
+    
+    .product-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-detail-container {
+        padding: 0 1rem;
+        gap: 1.5rem;
+    }
+    
+    .carousel {
+        max-width: min(80vw, 350px);
+        max-height: min(55vh, 437px); /* 350px * 5/4 = 437px */
+    }
+    
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .carousel-btn.prev {
+        left: 10px;
+    }
+    
+    .carousel-btn.next {
+        right: 10px;
+    }
+    
+    .carousel-dots {
+        bottom: 15px;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .product-info-section h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .product-info-section p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .product-price {
+        font-size: 1.6rem;
+        margin: 1.5rem 0 !important;
+    }
+    
+    .product-actions .btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-detail-container {
+        padding: 0 0.5rem;
+        gap: 1rem;
+    }
+    
+    .carousel {
+        max-width: min(90vw, 300px);
+        max-height: min(50vh, 375px); /* 300px * 5/4 = 375px */
+    }
+    
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .carousel-btn.prev {
+        left: 8px;
+    }
+    
+    .carousel-btn.next {
+        right: 8px;
+    }
+    
+    .product-info-section h1 {
+        font-size: 1.6rem;
+    }
+    
+    .product-info-section p {
+        font-size: 0.95rem;
+    }
+    
+    .product-price {
+        font-size: 1.4rem;
+    }
+    
+    .product-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .product-actions .btn {
+        width: 100%;
+        max-width: 200px;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1400px) {
+    .product-detail-container {
+        gap: 4rem;
+        padding: 0 3rem;
+    }
+    
+    .carousel {
+        max-width: 550px;
+        max-height: 687px; /* 550px * 5/4 = 687px */
+    }
+    
+    .product-info-section h1 {
+        font-size: 3rem;
+    }
+    
+    .product-info-section p {
+        font-size: 1.2rem;
+    }
+    
+    .product-price {
+        font-size: 2.2rem;
+    }
+    
+    .product-actions .btn {
+        padding: 18px 36px;
+        font-size: 1.2rem;
+        min-width: 160px;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+    .carousel {
+        max-width: 95vw;
+        max-height: min(45vh, calc(95vw * 5 / 4));
+    }
+    
+    .carousel-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+    
+    .carousel-btn.prev {
+        left: 5px;
+    }
+    
+    .carousel-btn.next {
+        right: 5px;
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .product-info-section h1 {
+        font-size: 1.4rem;
+    }
+    
+    .product-info-section p {
+        font-size: 0.9rem;
+    }
+    
+    .product-price {
+        font-size: 1.2rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@media (prefers-reduced-motion: no-preference) {
+    .product-detail-container {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .carousel {
+        animation: slideInLeft 0.5s ease-out;
+    }
+    
+    .product-info-section {
+        animation: slideInRight 0.5s ease-out 0.2s both;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus states for accessibility */
+.carousel-btn:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+.dot:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+.product-actions .btn:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .carousel-btn {
+        background: white;
+        border: 2px solid var(--dark-gray);
+    }
+    
+    .dot {
+        border: 3px solid white;
+    }
+    
+    .dot.active {
+        background: var(--primary-blue);
+    }
+}
+/* Perfumed Creams Section - Distinctive Styling */
+.cream-explorer {
+    margin-top: 4rem;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, rgba(245, 230, 211, 0.3), rgba(232, 213, 183, 0.2));
+    border-radius: 30px;
+}
+
+.cream-explorer .explorer-title {
+    color: #8B4513; /* Warm brown color for creams */
+    font-size: 2.5rem;
+}
+
+.cream-explorer .explorer-title::after {
+    background: linear-gradient(135deg, #D2691E, var(--beige));
+}
+
+.cream-explorer .perfume-grid {
+    background: linear-gradient(135deg, rgba(210, 105, 30, 0.1), rgba(245, 230, 211, 0.4));
+    border: 2px solid rgba(210, 105, 30, 0.2);
+}
+
+.cream-explorer .perfume-card {
+    background: #f5e6d3;
+    border: 1px solid rgba(210, 105, 30, 0.1);
+    box-shadow: 0 4px 15px rgba(210, 105, 30, 0.1);
+}
+
+.cream-explorer .perfume-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(210, 105, 30, 0.2);
+    border-color: rgba(210, 105, 30, 0.3);
+}
+
+.cream-explorer .perfume-image-carousel {
+    background: linear-gradient(135deg, #FFF8DC, #F5E6D3);
+    border: 2px solid rgba(210, 105, 30, 0.1);
+}
+
+.cream-explorer .perfume-info h4 {
+    color: #8B4513;
+    font-weight: 600;
+}
+
+.cream-explorer .perfume-price {
+    color: #D2691E;
+    font-weight: 700;
+}
+
+.cream-explorer .perfume-add-btn {
+    background: linear-gradient(135deg, #D2691E, #CD853F);
+    color: white;
+    border: none;
+    font-weight: 600;
+}
+
+.cream-explorer .perfume-add-btn:hover {
+    background: linear-gradient(135deg, #B8860B, #D2691E);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+}
+
+.cream-explorer .perfume-dot {
+    background: rgba(210, 105, 30, 0.6);
+    border: 1px solid rgba(210, 105, 30, 0.8);
+}
+
+.cream-explorer .perfume-dot.active {
+    background: #D2691E;
+    border-color: #8B4513;
+}
+
+/* Responsive adjustments for cream section */
+@media (max-width: 768px) {
+    .cream-explorer {
+        margin-top: 3rem;
+        padding: 2rem 0;
+        border-radius: 20px;
+    }
+    
+    .cream-explorer .explorer-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cream-explorer {
+        margin-top: 2rem;
+        padding: 1.5rem 0;
+        border-radius: 15px;
+    }
+    
+    .cream-explorer .explorer-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* Animation for cream section */
+@media (prefers-reduced-motion: no-preference) {
+    .cream-explorer {
+        animation: fadeInScale 0.8s ease-out 0.3s both;
+    }
+    
+    .cream-explorer .perfume-card {
+        animation: slideInUp 0.5s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .cream-explorer .perfume-card:nth-child(1) { animation-delay: 0.6s; }
+    .cream-explorer .perfume-card:nth-child(2) { animation-delay: 0.7s; }
+    .cream-explorer .perfume-card:nth-child(3) { animation-delay: 0.8s; }
+    .cream-explorer .perfume-card:nth-child(4) { animation-delay: 0.9s; }
+    .cream-explorer .perfume-card:nth-child(5) { animation-delay: 1.0s; }
+}
+
+/* Hover effects for cream cards */
+.cream-explorer .perfume-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(210, 105, 30, 0.1), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+    border-radius: 15px;
+}
+
+.cream-explorer .perfume-card:hover::before {
+    left: 100%;
+}
+
+/* Focus states for cream section */
+.cream-explorer .perfume-add-btn:focus {
+    outline: 2px solid #8B4513;
+    outline-offset: 2px;
+}
+
+.cream-explorer .perfume-card:focus-within {
+    outline: 2px solid #D2691E;
+    outline-offset: 2px;
+}
+/* Body Mist Collection Section - Same Blue Theme */
+.mist-collection {
+    margin: 4rem 0;
+    padding: 3rem 2rem;
+    background: #f5e6d3;
+    border-radius: 30px;
+    border: 2px solid rgba(210, 105, 30, 0.2);
+    box-shadow: var(--shadow-hover);
+}
+
+.mist-collection .carousel {
+    border: 3px solid rgba(107, 155, 210, 0.2);
+    box-shadow: var(--shadow-hover);
+}
+
+.mist-collection .carousel-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--dark-gray);
+    border: none;
+}
+
+.mist-collection .carousel-btn:hover {
+    background: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-hover);
+}
+
+.mist-collection .dot {
+    border: 2px solid white;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.mist-collection .dot.active,
+.mist-collection .dot:hover {
+    background: white;
+    transform: scale(1.2);
+}
+
+.mist-collection .product-info-section h1 {
+    color: var(--dark-gray);
+}
+
+.mist-collection .product-info-section p {
+    color: #666;
+}
+
+.mist-collection .product-price {
+    color: var(--primary-blue) !important;
+}
+
+.mist-collection .btn-primary {
+    background: linear-gradient(135deg, var(--primary-blue), #5A8BC7);
+    color: white;
+    box-shadow: var(--shadow);
+}
+
+.mist-collection .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.mist-collection .btn-secondary {
+    background: linear-gradient(135deg, var(--beige), var(--dark-beige));
+    color: var(--dark-gray);
+    box-shadow: var(--shadow);
+}
+
+.mist-collection .btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Responsive adjustments for mist collection */
+@media (max-width: 968px) {
+    .mist-collection {
+        margin: 3rem 0;
+        padding: 2rem 1rem;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mist-collection {
+        margin: 2rem 0;
+        padding: 1.5rem 1rem;
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mist-collection {
+        margin: 1.5rem 0;
+        padding: 1rem 0.5rem;
+        border-radius: 12px;
+    }
+}
+
+/* Animation for mist collection */
+@media (prefers-reduced-motion: no-preference) {
+    .mist-collection {
+        animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .mist-collection .carousel {
+        animation: slideInLeft 0.6s ease-out 0.2s both;
+    }
+    
+    .mist-collection .product-info-section {
+        animation: slideInRight 0.6s ease-out 0.4s both;
+    }
+}
+
+/* Focus states for mist collection */
+.mist-collection .btn:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+.mist-collection .carousel-btn:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+.mist-collection .dot:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+/* Clean Carousel Functionality */
+.carousel-btn {
+    z-index: 20;
+}
+
+.carousel-dots {
+    z-index: 15;
+}
+
+/* Touch-friendly improvements */
+@media (max-width: 768px) {
+    .carousel-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+    }
+    
+    .dot {
+        width: 14px;
+        height: 14px;
+        margin: 0 4px;
+    }
+}
+/* Ensure other sections are not affected by product-detail-container styles */
+.perfume-explorer,
+.cream-explorer,
+.mist-collection {
+    /* Reset any potential conflicts */
+    display: block;
+    grid-template-columns: none;
+    gap: normal;
+}
+
+/* Additional mobile optimizations for the main Fragrance Collection */
+@media (max-width: 600px) {
+    .product-detail-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .image-slider {
+        max-width: 85vw;
+        max-height: min(60vh, calc(85vw * 5 / 4));
+        margin: 0 auto;
+    }
+    
+    .product-info-section {
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    .product-info-section h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .product-info-section p {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+    
+    .product-price {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 !important;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .product-detail-container {
+        padding: 0 0.5rem;
+        gap: 1rem;
+    }
+    
+    .image-slider {
+        max-width: 90vw;
+        max-height: min(55vh, calc(90vw * 5 / 4));
+    }
+    
+    .product-info-section h1 {
+        font-size: 1.6rem;
+    }
+    
+    .product-info-section p {
+        font-size: 0.9rem;
+    }
+    
+    .product-price {
+        font-size: 1.3rem;
+    }
+    
+    .product-actions .btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        min-width: 100px;
+    }
+}
+
+/* Large phones in landscape mode */
+@media (max-width: 896px) and (orientation: landscape) {
+    .product-detail-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: center;
+    }
+    
+    .image-slider {
+        max-width: min(40vw, 350px);
+        max-height: min(70vh, 437px);
+    }
+    
+    .product-info-section {
+        text-align: left;
+        padding: 1rem 0;
+    }
+    
+    .product-info-section h1 {
+        font-size: 1.8rem;
+    }
+    
+    .product-info-section p {
+        font-size: 0.95rem;
+    }
+    
+    .product-actions {
+        justify-content: flex-start;
+    }
+}
+
+/* Tablet portrait mode */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .product-detail-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+        max-width: 600px;
+    }
+    
+    .image-slider {
+        max-width: min(60vw, 400px);
+        max-height: min(50vh, 500px);
+        margin: 0 auto;
+    }
+    
+    .product-actions {
+        justify-content: center;
+    }
+}
+
+/* Ensure smooth transitions on all devices */
+@media (prefers-reduced-motion: no-preference) {
+    .product-detail-container {
+        transition: all 0.3s ease;
+    }
+    
+    .image-slider,
+    .product-info-section {
+        transition: all 0.3s ease;
+    }
+}
+/* Section Separator - Dark Blue Line */
+.section-separator {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #1e3a8a, transparent);
+    margin: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add a subtle glow effect */
+.section-separator::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -100%;
+    width: 100%;
+    height: 7px;
+    background: linear-gradient(90deg, transparent, rgba(30, 58, 138, 0.3), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+}
+
+/* Responsive adjustments for separator */
+@media (max-width: 768px) {
+    .section-separator {
+        margin: 3rem 0;
+        height: 2px;
+    }
+    
+    .section-separator::before {
+        height: 6px;
+        top: -2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-separator {
+        margin: 2rem 0;
+        height: 2px;
+    }
+    
+    .section-separator::before {
+        height: 5px;
+        top: -1.5px;
+    }
+}
+
+/* Alternative solid version (if shimmer is too much) */
+.section-separator.solid {
+    background: #1e3a8a;
+    animation: none;
+}
+
+.section-separator.solid::before {
+    display: none;
+}
+/* Section Heading - Centered Bold Title */
+.section-heading {
+    text-align: center;
+    margin: 2rem 0 3rem 0;
+    padding: 0 2rem;
+}
+
+.section-heading h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    position: relative;
+}
+
+/* Add subtle underline decoration */
+.section-heading h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--primary-blue), #1e3a8a);
+    border-radius: 2px;
+}
+
+/* Responsive adjustments for section heading */
+@media (max-width: 1200px) {
+    .section-heading h2 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-heading {
+        margin: 1.5rem 0 2.5rem 0;
+        padding: 0 1rem;
+    }
+    
+    .section-heading h2 {
+        font-size: 2.2rem;
+    }
+    
+    .section-heading h2::after {
+        width: 60px;
+        height: 2px;
+        bottom: -8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-heading {
+        margin: 1rem 0 2rem 0;
+        padding: 0 0.5rem;
+    }
+    
+    .section-heading h2 {
+        font-size: 2rem;
+    }
+    
+    .section-heading h2::after {
+        width: 50px;
+        height: 2px;
+        bottom: -6px;
+    }
+}
+
+/* Animation for section heading */
+@media (prefers-reduced-motion: no-preference) {
+    .section-heading {
+        animation: fadeInUp 0.6s ease-out 0.3s both;
+    }
+    
+    .section-heading h2::after {
+        animation: expandWidth 0.8s ease-out 0.6s both;
+    }
+}
+
+@keyframes expandWidth {
+    from {
+        width: 0;
+    }
+    to {
+        width: 80px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .section-heading h2 {
+        color: #000;
+    }
+    
+    .section-heading h2::after {
+        background: #000;
+    }
+}
+/* Perfumed Creams Section - Fully Blue Button */
+.mist-collection .btn-primary {
+    background: var(--primary-blue) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(107, 155, 210, 0.3) !important;
+}
+
+.mist-collection .btn-primary:hover {
+    background: #5A8BC7 !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(107, 155, 210, 0.4) !important;
+}
+
+.mist-collection .btn-primary:active {
+    background: #4A7BB7 !important;
+    transform: translateY(-1px) !important;
+}
+
+.mist-collection .btn-primary:focus {
+    outline: 2px solid var(--primary-blue) !important;
+    outline-offset: 2px !important;
+    background: var(--primary-blue) !important;
+}
+/* Make Perfumed Creams main section match the cream-explorer styling */
+.mist-collection {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+    border-radius: 30px !important;
+}
+
+.mist-collection .image-slider {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.1) !important;
+}
+
+.mist-collection .product-info-section h1 {
+    color: #8B4513 !important;
+}
+
+.mist-collection .product-info-section p {
+    color: #8B4513 !important;
+}
+
+.mist-collection .product-price {
+    color: #D2691E !important;
+}
+
+.mist-collection .btn-secondary {
+    background: linear-gradient(135deg, var(--beige), var(--dark-beige)) !important;
+    color: #8B4513 !important;
+    border: 2px solid rgba(210, 105, 30, 0.3) !important;
+}
+
+.mist-collection .btn-secondary:hover {
+    background: linear-gradient(135deg, var(--dark-beige), #E8D5B7) !important;
+    border-color: rgba(210, 105, 30, 0.5) !important;
+    color: #6B3410 !important;
+}
+
+/* Update the slider controls to match cream theme */
+.mist-collection .slider-btn {
+    background: rgba(245, 230, 211, 0.95) !important;
+    color: #8B4513 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+}
+
+.mist-collection .slider-btn:hover {
+    background: rgba(245, 230, 211, 1) !important;
+    border-color: rgba(210, 105, 30, 0.4) !important;
+}
+
+.mist-collection .dot {
+    border: 2px solid rgba(210, 105, 30, 0.6) !important;
+    background: rgba(210, 105, 30, 0.3) !important;
+}
+
+.mist-collection .dot.active,
+.mist-collection .dot:hover {
+    background: rgba(210, 105, 30, 0.8) !important;
+    border-color: rgba(210, 105, 30, 0.9) !important;
+}
+/* Update Explore our five perfumes section to match cream theme */
+.perfume-explorer {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+    border-radius: 30px !important;
+}
+
+.perfume-explorer .explorer-title {
+    color: #8B4513 !important;
+}
+
+.perfume-explorer .explorer-title::after {
+    background: linear-gradient(135deg, #D2691E, var(--beige)) !important;
+}
+
+.perfume-explorer .perfume-grid {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.15) !important;
+}
+
+.perfume-explorer .perfume-card {
+    background: #f5e6d3 !important;
+    border: 1px solid rgba(210, 105, 30, 0.1) !important;
+    box-shadow: 0 4px 15px rgba(210, 105, 30, 0.1) !important;
+}
+
+.perfume-explorer .perfume-card:hover {
+    box-shadow: 0 8px 25px rgba(210, 105, 30, 0.2) !important;
+    border-color: rgba(210, 105, 30, 0.3) !important;
+}
+
+.perfume-explorer .perfume-image-carousel {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.1) !important;
+}
+
+.perfume-explorer .perfume-info h4 {
+    color: #8B4513 !important;
+}
+
+.perfume-explorer .perfume-price {
+    color: #D2691E !important;
+}
+
+.perfume-explorer .perfume-add-btn {
+    background: linear-gradient(135deg, #D2691E, #CD853F) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.perfume-explorer .perfume-add-btn:hover {
+    background: linear-gradient(135deg, #B8860B, #D2691E) !important;
+    box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3) !important;
+}
+
+.perfume-explorer .perfume-dot {
+    background: rgba(210, 105, 30, 0.6) !important;
+    border: 1px solid rgba(210, 105, 30, 0.8) !important;
+}
+
+.perfume-explorer .perfume-dot.active {
+    background: #D2691E !important;
+    border-color: #8B4513 !important;
+}
+
+/* Update hover effects for perfume cards */
+.perfume-explorer .perfume-card::before {
+    background: linear-gradient(90deg, transparent, rgba(210, 105, 30, 0.1), transparent) !important;
+}
+
+/* Focus states for perfume section */
+.perfume-explorer .perfume-add-btn:focus {
+    outline: 2px solid #8B4513 !important;
+}
+
+.perfume-explorer .perfume-card:focus-within {
+    outline: 2px solid #D2691E !important;
+}
+/* Update main Fragrance Collection section to match cream theme */
+.product-detail-container {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+    border-radius: 30px !important;
+    padding: 3rem 2rem !important;
+    margin: 2rem 0 !important;
+}
+
+.product-detail-container .image-slider {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.1) !important;
+}
+
+.product-detail-container .product-info-section h1 {
+    color: #8B4513 !important;
+}
+
+.product-detail-container .product-info-section p {
+    color: #8B4513 !important;
+}
+
+.product-detail-container .product-price {
+    color: #D2691E !important;
+}
+
+.product-detail-container .btn-primary {
+    background: linear-gradient(135deg, #D2691E, #CD853F) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3) !important;
+}
+
+.product-detail-container .btn-primary:hover {
+    background: linear-gradient(135deg, #B8860B, #D2691E) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(210, 105, 30, 0.4) !important;
+}
+
+.product-detail-container .btn-secondary {
+    background: linear-gradient(135deg, var(--beige), var(--dark-beige)) !important;
+    color: #8B4513 !important;
+    border: 2px solid rgba(210, 105, 30, 0.3) !important;
+}
+
+.product-detail-container .btn-secondary:hover {
+    background: linear-gradient(135deg, var(--dark-beige), #E8D5B7) !important;
+    border-color: rgba(210, 105, 30, 0.5) !important;
+    color: #6B3410 !important;
+}
+
+/* Update the slider controls to match cream theme */
+.product-detail-container .slider-btn {
+    background: rgba(245, 230, 211, 0.95) !important;
+    color: #8B4513 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+}
+
+.product-detail-container .slider-btn:hover {
+    background: rgba(245, 230, 211, 1) !important;
+    border-color: rgba(210, 105, 30, 0.4) !important;
+}
+
+.product-detail-container .dot {
+    border: 2px solid rgba(210, 105, 30, 0.6) !important;
+    background: rgba(210, 105, 30, 0.3) !important;
+}
+
+.product-detail-container .dot.active,
+.product-detail-container .dot:hover {
+    background: rgba(210, 105, 30, 0.8) !important;
+    border-color: rgba(210, 105, 30, 0.9) !important;
+}
+
+/* Responsive adjustments for main fragrance collection */
+@media (max-width: 1200px) {
+    .product-detail-container {
+        padding: 2rem 1.5rem !important;
+    }
+}
+
+@media (max-width: 968px) {
+    .product-detail-container {
+        padding: 2rem 1rem !important;
+        margin: 1.5rem 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-detail-container {
+        padding: 1.5rem 1rem !important;
+        margin: 1rem 0 !important;
+        border-radius: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-detail-container {
+        padding: 1rem 0.5rem !important;
+        border-radius: 15px !important;
+    }
+}
+/* Center images in Fragrance Collection and Perfumed Creams sections */
+.product-detail-container .product-gallery-section {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.product-detail-container .image-slider {
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+.mist-collection .product-gallery-section {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.mist-collection .image-slider {
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+/* Ensure slides are properly centered within the slider */
+.slide {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.slide img {
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+/* Center the slider container itself */
+.slider-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Additional centering for responsive breakpoints */
+@media (max-width: 968px) {
+    .product-detail-container .product-gallery-section,
+    .mist-collection .product-gallery-section {
+        text-align: center !important;
+        padding: 0 !important;
+    }
+    
+    .product-detail-container .image-slider,
+    .mist-collection .image-slider {
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-detail-container .product-gallery-section,
+    .mist-collection .product-gallery-section {
+        justify-content: center !important;
+        align-items: center !important;
+        display: flex !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-detail-container .image-slider,
+    .mist-collection .image-slider {
+        margin: 0 auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        position: relative !important;
+    }
+}
+/* Add more separation between Perfumes and Perfumed Creams sections */
+
+/* Increase bottom margin for perfume sections */
+.perfume-explorer {
+    margin-bottom: 5rem !important;
+}
+
+/* Increase top margin for the separation line */
+.section-separator {
+    margin: 6rem 0 4rem 0 !important;
+}
+
+/* Add more space around the Perfumed Creams heading */
+.section-heading {
+    margin: 3rem 0 4rem 0 !important;
+}
+
+/* Add more space around the Perfumed Creams collection */
+.mist-collection {
+    margin: 4rem 0 5rem 0 !important;
+}
+
+/* Add space around the individual cream cards section */
+.cream-explorer {
+    margin-top: 5rem !important;
+    margin-bottom: 4rem !important;
+}
+
+/* Responsive adjustments for section separation */
+@media (max-width: 768px) {
+    .perfume-explorer {
+        margin-bottom: 4rem !important;
+    }
+    
+    .section-separator {
+        margin: 5rem 0 3rem 0 !important;
+    }
+    
+    .section-heading {
+        margin: 2rem 0 3rem 0 !important;
+    }
+    
+    .mist-collection {
+        margin: 3rem 0 4rem 0 !important;
+    }
+    
+    .cream-explorer {
+        margin-top: 4rem !important;
+        margin-bottom: 3rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfume-explorer {
+        margin-bottom: 3rem !important;
+    }
+    
+    .section-separator {
+        margin: 4rem 0 2rem 0 !important;
+    }
+    
+    .section-heading {
+        margin: 1.5rem 0 2.5rem 0 !important;
+    }
+    
+    .mist-collection {
+        margin: 2.5rem 0 3rem 0 !important;
+    }
+    
+    .cream-explorer {
+        margin-top: 3rem !important;
+        margin-bottom: 2rem !important;
+    }
+}
+
+/* Add visual breathing room with padding adjustments */
+.perfume-explorer,
+.mist-collection,
+.cream-explorer {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
+@media (max-width: 768px) {
+    .perfume-explorer,
+    .mist-collection,
+    .cream-explorer {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfume-explorer,
+    .mist-collection,
+    .cream-explorer {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+}
+
+/* ===== ALL ADD TO CART BUTTONS - SOLID DARK BLUE ===== */
+
+/* All Add to Cart button variations */
+.perfume-add-btn,
+.add-to-cart,
+.thumb-add-btn,
+.perfumes-box .perfume-add-btn,
+.creams-box .perfume-add-btn,
+.perfume-explorer .perfume-add-btn,
+.cream-explorer .perfume-add-btn,
+.product-card .add-to-cart,
+.thumbnail-item .thumb-add-btn {
+    background: #1e3a8a !important; /* Solid dark blue */
+    color: white !important;
+    border: none !important;
+    border-radius: 25px !important;
+    padding: 8px 16px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    background-image: none !important; /* Remove any gradients */
+    background-clip: padding-box !important;
+}
+
+.perfume-add-btn:hover,
+.add-to-cart:hover,
+.thumb-add-btn:hover,
+.perfumes-box .perfume-add-btn:hover,
+.creams-box .perfume-add-btn:hover,
+.perfume-explorer .perfume-add-btn:hover,
+.cream-explorer .perfume-add-btn:hover,
+.product-card .add-to-cart:hover,
+.thumbnail-item .thumb-add-btn:hover {
+    background: #1e40af !important; /* Slightly lighter on hover */
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4) !important;
+    color: white !important;
+}
+
+.perfume-add-btn:active,
+.add-to-cart:active,
+.thumb-add-btn:active,
+.perfumes-box .perfume-add-btn:active,
+.creams-box .perfume-add-btn:active,
+.perfume-explorer .perfume-add-btn:active,
+.cream-explorer .perfume-add-btn:active,
+.product-card .add-to-cart:active,
+.thumbnail-item .thumb-add-btn:active {
+    background: #1d4ed8 !important;
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3) !important;
+}
+
+.perfume-add-btn:focus,
+.add-to-cart:focus,
+.thumb-add-btn:focus {
+    outline: 3px solid rgba(30, 58, 138, 0.5) !important;
+    outline-offset: 2px !important;
+    background: #1e3a8a !important;
+}
+
+/* Remove any conflicting styles from box-specific styling */
+.perfumes-box .perfume-card .perfume-add-btn,
+.creams-box .perfume-card .perfume-add-btn {
+    background: #1e3a8a !important;
+    background-image: none !important;
+    background-clip: padding-box !important;
+}
+
+.perfumes-box .perfume-card .perfume-add-btn:hover,
+.creams-box .perfume-card .perfume-add-btn:hover {
+    background: #1e40af !important;
+    background-image: none !important;
+}
+
+/* Ensure no gradients are applied anywhere */
+.perfume-add-btn,
+.add-to-cart,
+.thumb-add-btn {
+    background-image: none !important;
+    background: #1e3a8a !important;
+}
+
+/* Override any theme-specific button styling */
+.cream-explorer .perfume-add-btn,
+.perfume-explorer .perfume-add-btn {
+    background: #1e3a8a !important;
+    background-image: none !important;
+    color: white !important;
+}
+
+.cream-explorer .perfume-add-btn:hover,
+.perfume-explorer .perfume-add-btn:hover {
+    background: #1e40af !important;
+    background-image: none !important;
+    color: white !important;
+}
+
+/* Responsive sizing for add to cart buttons */
+@media (max-width: 768px) {
+    .perfume-add-btn,
+    .add-to-cart,
+    .thumb-add-btn {
+        padding: 6px 12px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfume-add-btn,
+    .add-to-cart,
+    .thumb-add-btn {
+        padding: 4px 8px !important;
+        font-size: 0.7rem !important;
+    }
+}
+
+/* Ensure buttons work on touch devices */
+@media (hover: none) {
+    .perfume-add-btn:active,
+    .add-to-cart:active,
+    .thumb-add-btn:active {
+        background: #1d4ed8 !important;
+        transform: scale(0.98) !important;
+    }
+}
+
+/* ===== BUY NOW AND SHOP CREAMS BUTTONS - SOLID DARK BLUE ===== */
+
+/* Target Buy Now and Shop Creams buttons specifically */
+.product-actions .btn-primary,
+.mist-collection .btn-primary,
+.perfumes-box .btn-primary,
+.creams-box .btn-primary,
+a[href="#"]:contains("Buy Now"),
+a[href="#"]:contains("Shop Creams"),
+.btn-primary[href="#"] {
+    background: #1e3a8a !important; /* Solid dark blue */
+    color: white !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 15px 30px !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3) !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    text-align: center !important;
+    background-image: none !important; /* Remove any gradients */
+    background-clip: padding-box !important;
+    min-width: 140px !important;
+}
+
+.product-actions .btn-primary:hover,
+.mist-collection .btn-primary:hover,
+.perfumes-box .btn-primary:hover,
+.creams-box .btn-primary:hover,
+a[href="#"]:hover:contains("Buy Now"),
+a[href="#"]:hover:contains("Shop Creams"),
+.btn-primary[href="#"]:hover {
+    background: #1e40af !important; /* Slightly lighter on hover */
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4) !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.product-actions .btn-primary:active,
+.mist-collection .btn-primary:active,
+.perfumes-box .btn-primary:active,
+.creams-box .btn-primary:active,
+a[href="#"]:active:contains("Buy Now"),
+a[href="#"]:active:contains("Shop Creams"),
+.btn-primary[href="#"]:active {
+    background: #1d4ed8 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3) !important;
+}
+
+/* Specific targeting for Buy Now and Shop Creams text content */
+.btn-primary {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+    background-image: none !important;
+}
+
+.btn-primary:hover {
+    background: #1e40af !important;
+    color: white !important;
+}
+
+.btn-primary:active {
+    background: #1d4ed8 !important;
+}
+
+/* Override any box-specific styling for these buttons */
+.perfumes-box .product-actions .btn-primary,
+.creams-box .product-actions .btn-primary,
+.mist-collection .product-actions .btn-primary {
+    background: #1e3a8a !important;
+    background-image: none !important;
+    background-clip: padding-box !important;
+}
+
+.perfumes-box .product-actions .btn-primary:hover,
+.creams-box .product-actions .btn-primary:hover,
+.mist-collection .product-actions .btn-primary:hover {
+    background: #1e40af !important;
+    background-image: none !important;
+}
+
+/* Remove any gradient or brown styling from Shop Creams buttons */
+.mist-collection .btn-primary,
+.creams-box .btn-primary {
+    background: #1e3a8a !important;
+    background-image: none !important;
+    color: white !important;
+    border: none !important;
+}
+
+.mist-collection .btn-primary:hover,
+.creams-box .btn-primary:hover {
+    background: #1e40af !important;
+    background-image: none !important;
+    color: white !important;
+}
+
+/* Focus states */
+.product-actions .btn-primary:focus,
+.mist-collection .btn-primary:focus,
+.perfumes-box .btn-primary:focus,
+.creams-box .btn-primary:focus {
+    outline: 3px solid rgba(30, 58, 138, 0.5) !important;
+    outline-offset: 2px !important;
+    background: #1e3a8a !important;
+}
+
+/* Ensure no conflicting styles */
+.btn-primary * {
+    color: white !important;
+}
+
+/* Remove any remaining brown/beige styling from Shop Creams */
+.creams-box .btn-primary,
+.mist-collection .btn-primary {
+    background: #1e3a8a !important;
+    background-image: none !important;
+    background-clip: padding-box !important;
+    border: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .product-actions .btn-primary,
+    .mist-collection .btn-primary,
+    .perfumes-box .btn-primary,
+    .creams-box .btn-primary {
+        padding: 12px 24px !important;
+        font-size: 1rem !important;
+        min-width: 120px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-actions .btn-primary,
+    .mist-collection .btn-primary,
+    .perfumes-box .btn-primary,
+    .creams-box .btn-primary {
+        padding: 10px 20px !important;
+        font-size: 0.95rem !important;
+        min-width: 100px !important;
+    }
+}
+.btn-secondary,
+.product-actions .btn-secondary,
+.mist-collection .btn-secondary {
+    background: var(--beige) !important;
+    color: var(--dark-gray) !important;
+    border: 2px solid rgba(210, 105, 30, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(210, 105, 30, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-secondary:hover,
+.product-actions .btn-secondary:hover,
+.mist-collection .btn-secondary:hover {
+    background: var(--dark-beige) !important;
+    border-color: rgba(210, 105, 30, 0.5) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(210, 105, 30, 0.3) !important;
+}
+
+/* Cart and navigation buttons */
+.cart-btn {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.cart-btn:hover {
+    background: #1e40af !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Add to cart buttons in product cards */
+.add-to-cart,
+.thumb-add-btn {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.add-to-cart:hover,
+.thumb-add-btn:hover {
+    background: #1e40af !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Modal and form buttons */
+.modal .btn-primary,
+.cart-modal .btn-primary,
+#checkout-btn {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+}
+
+.modal .btn-primary:hover,
+.cart-modal .btn-primary:hover,
+#checkout-btn:hover {
+    background: #1e40af !important;
+}
+
+/* Filter buttons */
+.filter-btn {
+    border: 2px solid #1e3a8a !important;
+    background: transparent !important;
+    color: #1e3a8a !important;
+    transition: all 0.3s ease !important;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #1e3a8a !important;
+    color: white !important;
+}
+
+/* Quantity control buttons */
+.quantity-btn,
+.qty-controls button {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: 1px solid #1e3a8a !important;
+    transition: all 0.3s ease !important;
+}
+
+.quantity-btn:hover,
+.qty-controls button:hover {
+    background: #1e40af !important;
+}
+
+/* Newsletter button */
+.newsletter-form button,
+.newsletter-form .btn {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+}
+
+.newsletter-form button:hover,
+.newsletter-form .btn:hover {
+    background: #1e40af !important;
+}
+
+/* Focus states for accessibility */
+.btn-primary:focus,
+.perfume-add-btn:focus,
+.cart-btn:focus,
+.add-to-cart:focus,
+.filter-btn:focus,
+.quantity-btn:focus {
+    outline: 3px solid rgba(30, 58, 138, 0.5) !important;
+    outline-offset: 2px !important;
+}
+
+/* Remove any remaining gradient backgrounds */
+.btn-primary,
+.perfume-add-btn,
+.cart-btn,
+.add-to-cart,
+.thumb-add-btn,
+.quantity-btn,
+.filter-btn.active {
+    background-image: none !important;
+}
+
+/* Ensure buttons work properly on touch devices */
+@media (hover: none) {
+    .btn-primary:active,
+    .perfume-add-btn:active,
+    .cart-btn:active,
+    .add-to-cart:active {
+        background: #1d4ed8 !important;
+        transform: scale(0.98) !important;
+    }
+}
+.section-separator {
+    display: none !important; /* Hide old separators */
+}
+
+/* Ensure perfume explorer and cream explorer are contained within their sections */
+.perfumes-section .perfume-explorer {
+    margin: 3rem 0 1rem 0 !important;
+}
+
+.creams-section .cream-explorer {
+    margin: 3rem 0 1rem 0 !important;
+}
+.product-detail-container {
+    margin: 3rem 0 !important;
+}
+
+.product-detail-container:first-of-type {
+    margin-top: 1rem !important;
+}
+
+.mist-collection {
+    margin-top: 5rem !important;
+    margin-bottom: 3rem !important;
+}
+
+/* Ensure proper spacing around section separators */
+.section-separator {
+    margin: 5rem 0 !important;
+}
+
+.section-heading {
+    margin: 2rem 0 4rem 0 !important;
+}
+
+/* Additional spacing for perfume explorer sections */
+.perfume-explorer {
+    margin: 4rem 0 !important;
+}
+
+.cream-explorer {
+    margin: 4rem 0 !important;
+}
+
+/* Responsive spacing adjustments */
+@media (max-width: 768px) {
+    .product-detail-container {
+        margin: 2rem 0 !important;
+    }
+    
+    .mist-collection {
+        margin-top: 3rem !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    .section-separator {
+        margin: 3rem 0 !important;
+    }
+    
+    .section-heading {
+        margin: 1.5rem 0 3rem 0 !important;
+    }
+    
+    .perfume-explorer,
+    .cream-explorer {
+        margin: 3rem 0 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-detail-container {
+        margin: 1.5rem 0 !important;
+    }
+    
+    .mist-collection {
+        margin-top: 2rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .section-separator {
+        margin: 2rem 0 !important;
+    }
+    
+    .section-heading {
+        margin: 1rem 0 2rem 0 !important;
+    }
+    
+    .perfume-explorer,
+    .cream-explorer {
+        margin: 2rem 0 !important;
+    }
+}
+
+/* Ensure all sections have proper visual hierarchy and spacing */
+.container > * + * {
+    margin-top: 2rem;
+}
+
+/* Final adjustments for perfect section separation */
+.perfume-explorer + .section-separator {
+    margin-top: 6rem !important;
+}
+
+.section-separator + .section-heading {
+    margin-top: 3rem !important;
+}
+
+.section-heading + .mist-collection {
+    margin-top: 2rem !important;
+}
+/* ===== SEPARATE INDEPENDENT BOXES ===== */
+
+/* Perfumes Box - Blue Theme */
+.perfumes-box {
+    background: #f5e6d3;
+    border: 4px solid rgba(210, 105, 30, 0.4);
+    border-radius: 30px;
+    padding: 3rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    box-shadow: 
+        0 15px 35px rgba(210, 105, 30, 0.2),
+        0 5px 15px rgba(210, 105, 30, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    isolation: isolate;
+    backdrop-filter: blur(10px);
+}
+
+.perfumes-box::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, var(--primary-blue), #4A7BB7, var(--primary-blue));
+    border-radius: 33px;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+.perfumes-box::after {
+    content: 'PERFUMES COLLECTION';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-blue);
+    color: white;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(5, 22, 80, 0.3);
+}
+
+/* Creams Box - Brown Theme */
+.creams-box {
+    background: #f5e6d3;
+    border: 4px solid rgba(210, 105, 30, 0.4);
+    border-radius: 30px;
+    padding: 3rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    box-shadow: 
+        0 15px 35px rgba(210, 105, 30, 0.2),
+        0 5px 15px rgba(210, 105, 30, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    isolation: isolate;
+    backdrop-filter: blur(10px);
+}
+
+.creams-box::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, #D2691E, #CD853F, #D2691E);
+    border-radius: 33px;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+.creams-box::after {
+    content: 'PERFUMED CREAMS COLLECTION';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #D2691E;
+    color: white;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(210, 105, 30, 0.3);
+}
+
+/* Box Separator - Large Gap */
+.box-separator {
+    height: 120px;
+    background: transparent;
+    position: relative;
+    margin: 4rem 0;
+}
+
+.box-separator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ccc, transparent);
+}
+
+.box-separator::after {
+    content: '◆ ◆ ◆';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #999;
+    font-size: 1.2rem;
+    background: var(--white);
+    padding: 0 20px;
+    letter-spacing: 10px;
+}
+
+/* Box-specific styling overrides */
+.perfumes-box .section-heading h2 {
+    color: #8B4513 !important;
+    font-size: 3rem !important;
+    text-align: center;
+    margin-bottom: 2rem !important;
+    text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
+}
+
+.perfumes-box .section-heading h2::after {
+    background: #D2691E !important;
+    width: 120px !important;
+    height: 4px !important;
+}
+
+.creams-box .section-heading h2 {
+    color: #8B4513 !important;
+    font-size: 3rem !important;
+    text-align: center;
+    margin-bottom: 2rem !important;
+    text-shadow: 2px 2px 4px rgba(139, 69, 19, 0.1);
+}
+
+.creams-box .section-heading h2::after {
+    background: #D2691E !important;
+    width: 120px !important;
+    height: 4px !important;
+}
+
+/* Ensure all content within boxes follows box theme */
+.perfumes-box .product-detail-container {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+    border-radius: 20px !important;
+}
+
+.perfumes-box .perfume-explorer {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+    border-radius: 20px !important;
+}
+
+.perfumes-box .perfume-explorer .explorer-title {
+    color: #8B4513 !important;
+}
+
+.perfumes-box .perfume-grid {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+}
+
+.perfumes-box .perfume-card {
+    background: #f5e6d3 !important;
+    border: 1px solid rgba(210, 105, 30, 0.1) !important;
+}
+
+.perfumes-box .perfume-add-btn {
+    background: linear-gradient(135deg, var(--primary-blue), #4A7BB7) !important;
+    color: white !important;
+}
+
+.creams-box .product-detail-container {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+    border-radius: 20px !important;
+}
+
+.creams-box .cream-explorer {
+    background: rgba(255, 248, 220, 0.5) !important;
+    border: 2px solid rgba(210, 105, 30, 0.15) !important;
+    border-radius: 20px !important;
+}
+
+.creams-box .cream-explorer .explorer-title {
+    color: #8B4513 !important;
+}
+
+.creams-box .perfume-grid {
+    background: #f5e6d3 !important;
+    border: 2px solid rgba(210, 105, 30, 0.2) !important;
+}
+
+.creams-box .perfume-card {
+    background: rgba(255, 248, 220, 0.9) !important;
+    border: 1px solid rgba(210, 105, 30, 0.1) !important;
+}
+
+.creams-box .perfume-add-btn {
+    background: linear-gradient(135deg, #D2691E, #CD853F) !important;
+    color: white !important;
+}
+
+/* Responsive Design for Boxes */
+@media (max-width: 1200px) {
+    .perfumes-box,
+    .creams-box {
+        padding: 2.5rem;
+        margin: 1.5rem;
+        border-radius: 25px;
+    }
+    
+    .box-separator {
+        height: 100px;
+        margin: 3rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .perfumes-box,
+    .creams-box {
+        padding: 2rem;
+        margin: 1rem;
+        border-radius: 20px;
+        border-width: 3px;
+    }
+    
+    .perfumes-box::after,
+    .creams-box::after {
+        font-size: 0.8rem;
+        padding: 6px 18px;
+        top: -12px;
+    }
+    
+    .perfumes-box .section-heading h2,
+    .creams-box .section-heading h2 {
+        font-size: 2.5rem !important;
+    }
+    
+    .box-separator {
+        height: 80px;
+        margin: 2rem 0;
+    }
+    
+    .box-separator::after {
+        font-size: 1rem;
+        letter-spacing: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfumes-box,
+    .creams-box {
+        padding: 1.5rem;
+        margin: 0.5rem;
+        border-radius: 15px;
+        border-width: 2px;
+    }
+    
+    .perfumes-box::after,
+    .creams-box::after {
+        font-size: 0.7rem;
+        padding: 4px 12px;
+        top: -10px;
+    }
+    
+    .perfumes-box .section-heading h2,
+    .creams-box .section-heading h2 {
+        font-size: 2rem !important;
+    }
+    
+    .box-separator {
+        height: 60px;
+        margin: 1.5rem 0;
+    }
+    
+    .box-separator::after {
+        font-size: 0.9rem;
+        letter-spacing: 6px;
+    }
+}
+
+/* Ensure complete visual separation */
+.perfumes-box {
+    transform: translateZ(0);
+    will-change: transform;
+    contain: layout style paint;
+}
+
+.creams-box {
+    transform: translateZ(0);
+    will-change: transform;
+    contain: layout style paint;
+}
+
+/* Remove any connecting elements */
+.major-section-divider,
+.section-separator {
+    display: none !important;
+}
+/* ===== SECONDARY BUTTONS - Keep as beige/brown ===== */
+.btn-secondary,
+.product-actions .btn-secondary,
+.mist-collection .btn-secondary {
+    background: var(--beige) !important;
+    color: var(--dark-gray) !important;
+    border: 2px solid rgba(210, 105, 30, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(210, 105, 30, 0.2) !important;
+    transition: all 0.3s ease !important;
+    border-radius: 50px !important;
+    padding: 12px 30px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    text-align: center !important;
+}
+
+.btn-secondary:hover,
+.product-actions .btn-secondary:hover,
+.mist-collection .btn-secondary:hover {
+    background: var(--dark-beige) !important;
+    border-color: rgba(210, 105, 30, 0.5) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(210, 105, 30, 0.3) !important;
+    text-decoration: none !important;
+}
+
+/* ===== OTHER BUTTONS - ALL DARK BLUE ===== */
+
+/* Cart and navigation buttons */
+.cart-btn {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+    background-image: none !important;
+}
+
+.cart-btn:hover {
+    background: #1e40af !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Filter buttons */
+.filter-btn {
+    border: 2px solid #1e3a8a !important;
+    background: transparent !important;
+    color: #1e3a8a !important;
+    transition: all 0.3s ease !important;
+    background-image: none !important;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #1e3a8a !important;
+    color: white !important;
+    background-image: none !important;
+}
+
+/* Quantity control buttons */
+.quantity-btn,
+.qty-controls button {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: 1px solid #1e3a8a !important;
+    transition: all 0.3s ease !important;
+    background-image: none !important;
+}
+
+.quantity-btn:hover,
+.qty-controls button:hover {
+    background: #1e40af !important;
+}
+
+/* Remove any remaining gradient backgrounds from ALL buttons */
+button,
+.btn,
+.btn-primary,
+.perfume-add-btn,
+.add-to-cart,
+.thumb-add-btn,
+.cart-btn,
+.quantity-btn,
+.filter-btn.active,
+#checkout-btn,
+.modal button,
+.cart-modal button {
+    background-image: none !important;
+}
+
+/* Ensure all buttons have consistent dark blue styling */
+button[class*="btn-primary"],
+button[class*="add"],
+button[class*="cart"],
+.btn[class*="primary"],
+input[type="submit"],
+input[type="button"] {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+    background-image: none !important;
+}
+
+button[class*="btn-primary"]:hover,
+button[class*="add"]:hover,
+button[class*="cart"]:hover,
+.btn[class*="primary"]:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background: #1e40af !important;
+    color: white !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .btn-primary,
+    .btn-secondary {
+        padding: 10px 24px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-primary,
+    .btn-secondary {
+        padding: 8px 20px !important;
+        font-size: 0.8rem !important;
+    }
+}
+/* ===== ADDITIONAL PRIMARY BUTTON OVERRIDES ===== */
+
+/* Ensure ALL primary buttons are dark blue */
+.btn-primary,
+.modal .btn-primary,
+.cart-modal .btn-primary,
+#checkout-btn,
+.newsletter-form button,
+.newsletter-form .btn,
+button.btn-primary,
+a.btn-primary {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+    background-image: none !important;
+    background-clip: padding-box !important;
+}
+
+.btn-primary:hover,
+.modal .btn-primary:hover,
+.cart-modal .btn-primary:hover,
+#checkout-btn:hover,
+.newsletter-form button:hover,
+.newsletter-form .btn:hover,
+button.btn-primary:hover,
+a.btn-primary:hover {
+    background: #1e40af !important;
+    color: white !important;
+    background-image: none !important;
+}
+
+.btn-primary:active,
+.modal .btn-primary:active,
+.cart-modal .btn-primary:active,
+#checkout-btn:active,
+.newsletter-form button:active,
+.newsletter-form .btn:active,
+button.btn-primary:active,
+a.btn-primary:active {
+    background: #1d4ed8 !important;
+    color: white !important;
+}
+
+/* Override any remaining brown/orange styling */
+.creams-box .btn-primary,
+.mist-collection .btn-primary,
+.cream-explorer .btn-primary {
+    background: #1e3a8a !important;
+    background-image: none !important;
+    color: white !important;
+    border: none !important;
+}
+
+.creams-box .btn-primary:hover,
+.mist-collection .btn-primary:hover,
+.cream-explorer .btn-primary:hover {
+    background: #1e40af !important;
+    background-image: none !important;
+    color: white !important;
+}
+
+/* Remove any gradient backgrounds that might still exist */
+.btn-primary,
+.product-actions .btn-primary,
+.mist-collection .btn-primary,
+.perfumes-box .btn-primary,
+.creams-box .btn-primary {
+    background: #1e3a8a !important;
+    background-image: none !important;
+    background-attachment: initial !important;
+    background-origin: initial !important;
+    background-clip: padding-box !important;
+    background-color: #1e3a8a !important;
+}
+
+/* Ensure hover states are consistent */
+.btn-primary:hover,
+.product-actions .btn-primary:hover,
+.mist-collection .btn-primary:hover,
+.perfumes-box .btn-primary:hover,
+.creams-box .btn-primary:hover {
+    background: #1e40af !important;
+    background-image: none !important;
+    background-color: #1e40af !important;
+}
+
+/* Force override any conflicting styles */
+.btn-primary[style*="background"] {
+    background: #1e3a8a !important;
+}
+
+.btn-primary:hover[style*="background"] {
+    background: #1e40af !important;
+}
+
+/* Ensure text remains white */
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+    color: white !important;
+}
+
+/* Remove any box-shadow that might have colors */
+.btn-primary {
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3) !important;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4) !important;
+}
+/* ===== CART BUTTON VISIBILITY FIX ===== */
+
+/* Ensure cart button is always visible */
+.cart-btn {
+    background: #1e3a8a !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 15px !important;
+    border-radius: 50px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 1rem !important;
+    z-index: 1000 !important;
+    min-width: 60px !important;
+    min-height: 40px !important;
+    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3) !important;
+}
+
+.cart-btn:hover {
+    background: #1e40af !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.4) !important;
+}
+
+.cart-btn:active {
+    background: #1d4ed8 !important;
+    transform: translateY(0) !important;
+}
+
+/* Cart icon styling */
+.cart-btn i {
+    font-size: 1.2rem !important;
+    color: white !important;
+}
+
+/* Cart count badge */
+.cart-count {
+    position: absolute !important;
+    top: -8px !important;
+    right: -8px !important;
+    background: #f59e0b !important;
+    color: white !important;
+    border-radius: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.8rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 700 !important;
+    border: 2px solid white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Fallback if Font Awesome doesn't load */
+.cart-btn i::before {
+    content: "🛒" !important;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+    font-style: normal !important;
+}
+
+.cart-btn .fas.fa-shopping-cart::before {
+    content: "\f07a" !important;
+    font-family: "Font Awesome 6 Free" !important;
+    font-weight: 900 !important;
+    font-style: normal !important;
+}
+
+/* Navigation container adjustments */
+.nav-container nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+}
+
+/* Ensure navbar is visible */
+.navbar {
+    position: fixed !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: rgba(177, 155, 111, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    z-index: 1000 !important;
+    padding: 1rem 0 !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Mobile responsive cart button */
+@media (max-width: 768px) {
+    .cart-btn {
+        padding: 8px 12px !important;
+        font-size: 0.9rem !important;
+        min-width: 50px !important;
+        min-height: 36px !important;
+    }
+    
+    .cart-btn i {
+        font-size: 1rem !important;
+    }
+    
+    .cart-count {
+        width: 18px !important;
+        height: 18px !important;
+        font-size: 0.7rem !important;
+        top: -6px !important;
+        right: -6px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-btn {
+        padding: 6px 10px !important;
+        font-size: 0.8rem !important;
+        min-width: 45px !important;
+        min-height: 32px !important;
+    }
+    
+    .cart-count {
+        width: 16px !important;
+        height: 16px !important;
+        font-size: 0.6rem !important;
+    }
+}
+
+/* Clean cart button styling - no debug outline */
+.cart-btn {
+    outline: none !important;
+}
+/* ===== TOP OFFER BANNER ===== */
+
+.offer-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background: #1e3a8a;
+    border-bottom: 4px solid #1d4ed8;
+    z-index: 9999;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.offer-scroll {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.offer-content {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    animation: scrollBanner 30s linear infinite;
+    padding: 0 20px;
+}
+
+@keyframes scrollBanner {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Hover effects */
+.offer-banner:hover .offer-content {
+    animation-play-state: paused;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .offer-banner {
+        height: 40px;
+    }
+    
+    .offer-content {
+        font-size: 12px;
+        animation: scrollBanner 25s linear infinite;
+    }
+}
+
+@media (max-width: 480px) {
+    .offer-banner {
+        height: 35px;
+    }
+    
+    .offer-content {
+        font-size: 11px;
+        animation: scrollBanner 20s linear infinite;
+    }
+}
+
+/* Adjust navbar position */
+.navbar {
+    top: 45px !important;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        top: 40px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        top: 35px !important;
+    }
+}
+.hero {
+    padding-top: 120px !important;
+}
+
+.container[style*="padding: 140px"] {
+    padding-top: 140px !important;
 }

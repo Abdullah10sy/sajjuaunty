@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Offer Banner -->
+    <div class="offer-banner">
+        <div class="offer-scroll">
+            <div class="offer-content">
+                This site is under construction. Please contact us for direct orders |📞 Contact: +91 8778101432 | 💌 Email: sajjuhashim10@gmail.com | 🎉 TODAY'S SPECIAL: 25% OFF on All Fragrances | 💄 MEGA DEAL: Buy 2 Get 1 FREE on Skincare | 🌟 LIMITED TIME: 30% OFF Perfumed Creams | 📱 WhatsApp: +91 8778101432 for Instant Order | 💝 FLASH SALE: Up to 40% OFF Today Only | 📞 Contact: +91 8778101432 | 🎉 TODAY'S SPECIAL: 25% OFF on All Fragrances | 💄 MEGA DEAL: Buy 2 Get 1 FREE on Skincare | 🌟 LIMITED TIME: 30% OFF Perfumed Creams | 📱 WhatsApp: +91 8778101432 for Instant Orders | 💝 FLASH SALE: Up to 40% OFF Today Only | 
+            </div>
+        </div>
+    </div>
+    
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -17,16 +26,19 @@
             </div>
             <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#home" class="nav-link" data-tooltip="Home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#products" class="nav-link">Products</a>
+                    <a href="#products" class="nav-link" data-tooltip="Products">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
+                    <a href="categories.html" class="nav-link" data-tooltip="Categories">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#about" class="nav-link" data-tooltip="About">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-tooltip="Contact">Contact</a>
                 </li>
                 <li class="nav-item">
                     <button class="cart-btn" id="cart-btn">
@@ -55,85 +67,92 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Beauty Products" />
+                <img src="Photos\logo img.jpeg" alt="Beauty Products" />
             </div>
         </div>
     </section>
 
-    <!-- Featured Products Section -->
-    <section class="featured-products">
+    <!-- Fitness Products Section -->
+    <section class="fitness-products">
         <div class="container">
-            <h2 class="section-title">Featured Products</h2>
-            <div class="products-grid" id="featured-products">
-                <!-- Products will be dynamically loaded here -->
+            <h2 class="section-title">Fitness Products</h2>
+            <div class="products-grid" id="fitness-products">
+                <!-- Weight Loss Product -->
+                <div class="product-card">
+                    <a href="weight-loss.html" class="product-link">
+                        <div class="product-image">
+                            <img src="weight photo/Loss.jpg" alt="Weight Loss Plan">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Weight Loss Program</h3>
+                            <p class="product-price">From ₹4999</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Weight Gain Product -->
+                <div class="product-card">
+                    <a href="weight-gain.html" class="product-link">
+                        <div class="product-image">
+                            <img src="weight photo/gain.jpg" alt="Weight Gain Plan">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Weight Gain Program</h3>
+                            <p class="product-price">From ₹4499</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
+    <!-- Beauty Categories Section -->
+    <section class="Our-products">
         <div class="container">
-            <h2 class="section-title">What Our Customers Say</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"The skincare products are amazing! My skin has never looked better. Highly recommend Shahida Beauty Coach!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson">
-                            <div>
-                                <h4>Sarah Johnson</h4>
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
+            <h2 class="section-title">Our products</h2>
+            <div class="products-grid" id="beauty-products">
+                <div class="product-card">
+                    <a href="skincare.html" class="product-link">
+                        <div class="product-image">
+                            <img src="Photos/Gemini_Generated_Image_e9h93ze9h93ze9h9.jpg" alt="Skincare">
                         </div>
-                    </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Skincare</h3>
+                            <p class="product-price">From ₹999</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Natural ingredients and beautiful packaging. These products make me feel confident and radiant every day."</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Emily Chen">
-                            <div>
-                                <h4>Emily Chen</h4>
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
+
+                <div class="product-card">
+                    <a href="fragrance.html" class="product-link">
+                        <div class="product-image">
+                            <img src="Perfume/perfume cov.jpg" alt="Fragrance">
                         </div>
-                    </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Fragrance</h3>
+                            <p class="product-price">From ₹999</p>
+                        </div>
+                    </a>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Fast shipping and excellent customer service. The makeup collection is absolutely gorgeous!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Maria Rodriguez">
-                            <div>
-                                <h4>Maria Rodriguez</h4>
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
+
+                <div class="product-card">
+                    <a href="hairrcareindex.html" class="product-link">
+                        <div class="product-image">
+                            <img src="Photos/haircover2.jpg" alt="Haircare">
                         </div>
-                    </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Haircare</h3>
+                            <p class="product-price">From ₹299</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Newsletter Section -->
+    <div class="section-divider" aria-hidden="true"></div>
+
+        <!-- Newsletter Section -->
     <section class="newsletter">
         <div class="container">
             <div class="newsletter-content">
@@ -147,30 +166,14 @@
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <h2 class="section-title">Our Products</h2>
-            <div class="product-filters">
-                <button class="filter-btn active" data-filter="all">All Products</button>
-                <button class="filter-btn" data-filter="skincare">Skincare</button>
-                <button class="filter-btn" data-filter="makeup">Makeup</button>
-                <button class="filter-btn" data-filter="haircare">Haircare</button>
-            </div>
-            <div class="products-grid" id="products-grid">
-                <!-- Products will be dynamically loaded here -->
-            </div>
-        </div>
-    </section>
-
     <!-- About Section -->
     <section id="about" class="about-section">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>About Shahida Beauty Coach</h2>
-                    <p>At Shahida Beauty Coach, we believe that true beauty comes from within and is enhanced by the right products. Our mission is to provide premium, natural beauty products that celebrate your unique beauty and boost your confidence.</p>
-                    <p>Founded with a passion for clean beauty, we carefully select ingredients that are gentle on your skin while delivering exceptional results. Every product is crafted with love and attention to detail.</p>
+                    <h2>About Shahida Beauty Coaching</h2>
+                    <p>Discover the gold standard of high-performance beauty. Just as a masterpiece is built on a flawless foundation, our 2025 skincare collection utilizes precision-engineered formulas to deliver visible, real-time results. We believe in the potent synergy of nature and science, which is why the most ingredients in our products are derived from natural sources. From deep-acting serums that manage your skin’s vitality at a cellular level to ultra-fast absorbing creams designed for the modern woman, we provide the essential infrastructure for your daily glow. Experience the power of science and elegance combined—because your beauty deserves the highest level of control and care.</p>
+                          <h3>100% Halal</h3>
                     <div class="about-features">
                         <div class="feature">
                             <i class="fas fa-leaf"></i>
@@ -190,12 +193,73 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="About Shahida Beauty Coach">
+                    <img src="Photos/womenpic sajju.jpg" alt="About Shahida Beauty Coach">
                 </div>
             </div>
         </div>
     </section>
-
+ <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The skincare products are amazing! My skin has never looked better. Highly recommend Shahida Beauty Coach!"</p>
+                        <div class="testimonial-author">
+                            <img src="Photos/female avatar.jpg" alt="Sarah">
+                            <div>
+                                <h4>Sarah</h4>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Natural ingredients and beautiful packaging. These products make me feel confident and radiant every day."</p>
+                        <div class="testimonial-author">
+                            <img src="Photos/female avatar.jpg" alt="Fathima">
+                            <div>
+                                <h4>Fathima</h4>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Fast shipping and excellent customer service. The makeup collection is absolutely gorgeous!"</p>
+                        <div class="testimonial-author">
+                            <img src="Photos/female avatar.jpg" alt="Mariam siddique">
+                            <div>
+                                <h4>Mariam siddique</h4>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
@@ -204,22 +268,17 @@
                 <div class="contact-info">
                     <h3>Contact Information</h3>
                     <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>123 Beauty Street, Glamour City, GC 12345</p>
-                    </div>
-                    <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <p>+91 8778101432</p>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <p>@gmail.com</p>
+                        <p>sajjuhashim10@gmail.com</p>
                     </div>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/share/1AYCRYr9H7/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/twilight7862025?igsh=aGlsdDc1ZGoxNnB4"><i class="fab fa-instagram"></i></a>
+                        <a href="https://sharechat.com/profile/organicbeauty?d=n"><i class="fab fa-sharechat"></i>🗨️</a>
                     </div>
                 </div>
                 <form class="contact-form" id="contact-form">
@@ -249,10 +308,8 @@
                     <h3>Shahida Beauty Coach</h3>
                     <p>Discover your natural beauty with our premium collection of beauty products.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/share/1AYCRYr9H7/"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/twilight7862025?igsh=aGlsdDc1ZGoxNnB4"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
@@ -267,10 +324,10 @@
                 <div class="footer-section">
                     <h4>Categories</h4>
                     <ul>
-                        <li><a href="#products">Skincare</a></li>
-                        <li><a href="#products">Makeup</a></li>
-                        <li><a href="#products">Haircare</a></li>
-                        <li><a href="#products">Fragrance</a></li>
+                        <li><a href="skincare.html">Skincare</a></li>
+                        <li><a href="fragrance.html">Fragrance</a></li>
+                        <li><a href="hairrcareindex.html">Haircare</a></li>
+                        <li><a href="weight-loss.html">Fitness</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -284,7 +341,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Shahida Beauty Coach. All rights reserved.</p>
+                <p>&copy;©abuusyd 2026. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -322,5 +379,36 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('nav-menu');
+      if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function (e) {
+          navMenu.classList.toggle('active');
+          hamburger.classList.toggle('open');
+          const expanded = navMenu.classList.contains('active');
+          hamburger.setAttribute('aria-expanded', expanded);
+        });
+
+        // Close when a nav link is clicked
+        document.querySelectorAll('.nav-link').forEach(el => el.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          
+        }));
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    });
+    </script>
 </body>
 </html>
