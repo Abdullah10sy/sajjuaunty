@@ -1639,22 +1639,30 @@ html {
 @media (max-width: 480px) {
     .explorer-title {
         font-size: 1.8rem;
+        margin-bottom: 1.5rem !important;
+        display: block !important;
+        visibility: visible !important;
     }
     
     .perfume-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.8rem;
         padding: 1rem;
-        max-height: min(75vh, calc(95vw * 9 / 16));
+        max-height: none;
+        min-height: auto;
+        display: grid !important;
+        visibility: visible !important;
     }
     
     .perfume-card {
         max-width: 160px;
         padding: 0.8rem;
+        display: flex !important;
+        visibility: visible !important;
     }
     
     .perfume-image-carousel {
-        height: 70px;
+        height: 100px;
     }
     
     .perfume-info h4 {
@@ -3440,6 +3448,10 @@ html {
 @media (max-width: 480px) {
     .perfume-explorer {
         margin-bottom: 3rem !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        overflow: visible !important;
     }
     
     .section-separator {
